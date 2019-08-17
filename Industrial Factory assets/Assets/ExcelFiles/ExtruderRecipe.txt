@@ -1,0 +1,7 @@
+Id	Name	Crafting Time	Input Image/Prefab	Input Amount	Output Image/Prefab	needTobe
+1	Iron plate	1	Iron_Ingot	1	Iron_Plate	.
+2	Iron tube small	2	Iron_Ingot	1	Small_Iron_Tube	.
+3	Iron tube large	2	Iron_Ingot	1	Large_Iron_Tube	.
+4	Steel plate	2	Steel_Ingot	1	Steel_Plate	.
+5	Steel tube small	3	Steel_Ingot	1	Small_Steel_Tube	.
+6	Steel tube large	3	Steel_Ingot	1	Large_Steel_Tube	.

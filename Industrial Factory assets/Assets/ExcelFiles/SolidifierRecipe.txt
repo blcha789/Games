@@ -1,0 +1,8 @@
+ID	Name	Crafting Time	Input Image Fluid	Input 1 Item Image/Prefab name	Input 1 Item Amount	Input 2 Item Image/Prefab	Input 2 Item amount	Input 1 Fluid Name	Input 1 fluid Color	Input 1 Fluid amount	Input 2 Fluid Name	Input 2 fluid Color	Input 2 Fluid amount	Output Item Image/Prefab	needtobe
+1	Piston(Small)	2	Fluid	Basic_Piston_Hull	1	None	None	Oil	0,0,0	3	None	None	None	Basic_Piston	.
+2	Piston(Large)	4	Fluid	Advanced_Piston_Hull	1	None	None	Oil	0,0,0	6	None	None	None	Advanced_Piston	.
+3	Battery(Small)	2	Fluid	Basic_Battery_Hull	1	None	None	Sulfuric Acid	255,210,127	4	None	None	None	Basic_Battery	.
+4	Battery(Large)	5	Fluid	Advanced_Battery_Hull	1	None	None	Sulfuric Acid	255,210,127	8	None	None	None	Advanced_Battery	.
+5	Rubber	3	Fluid	None	None	None	None	Polyethylene	153,153,153	2	None	None	None	Rubber	.
+6	Plastic	2	Fluid	None	None	None	None	Polyethylene	153,153,153	2	None	None	None	Plastic	.
+7	FuelBarrel	4	Fluid	Empty_Barrel	1	None	None	Heavy Fuel	230,230,0	2	Light Fuel	255,255,26	4	Fuel_Barrel	.

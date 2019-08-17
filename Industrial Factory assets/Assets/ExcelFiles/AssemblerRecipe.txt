@@ -1,0 +1,33 @@
+Id	Name	Crafting Time	Input 1 Image/Prefab	Input 1 Amount	Intup 2 Image/Prefab	Input 2 Amount	Output Image/Prefab	needTobe
+1	Barrel	3	Large_Iron_Tube	1	Iron_Plate	2	Empty_Barrel	.
+2	Machine hull small	2	Small_Iron_Tube	6	None	None	Basic_Machine_Hull	.
+3	Machine hull large	3	Small_Steel_Tube	6	None	None	Advanced_Machine_Hull	.
+4	Battery Hull Small	5	Iron_Plate	3	None	None	Basic_Battery_Hull	.
+5	Battery Hull Large	8	Iron_Plate	5	None	None	Advanced_Battery_Hull	.
+6	Motor Hull Small	4	Iron_Plate	2	None	None	Basic_Motor_Hull	.
+7	Rotor small	5	Iron_Plate	2	Copper_Ingot	1	Basic_Rotor	.
+8	Motor Small	8	Basic_Motor_Hull	1	Basic_Rotor	1	Basic_Motor	.
+9	MotorHullLarge	6	Steel_Plate	6	None	None	Advanced_Motor_Hull	.
+10	Rotor large	7	Steel_Plate	4	Gold_Ingot	3	Advanced_Rotor	.
+11	Motor large	9	Advanced_Motor_Hull	1	Advanced_Rotor	1	Advanced_Motor	.
+12	PistonHullSmall	3	Small_Iron_Tube	2	Large_Iron_Tube	1	Basic_Piston_Hull	.
+13	PistonHullLarge	5	Small_Steel_Tube	2	Large_Steel_Tube	1	Advanced_Piston_Hull	.
+14	Electronics	6	Plastic	2	Copper_Ingot	1	Electronics	.
+15	Circuit board small	2	Plastic	2	Copper_Ingot	1	Basic_Circuit_Board	.
+16	Circuit board large	3	Plastic	4	Gold_Ingot	2	Advanced_Circuit_Board	.
+17	Circuit small	5	Basic_Circuit_Board	1	Electronics	3	Basic_Circuit	.
+18	Circuit large	6	Advanced_Circuit_Board	1	Electronics	5	Advanced_Circuit	.
+19	Tracks small	7	Basic_Motor	2	Iron_Plate	8	Small_Tracks	.
+20	Tracks large	9	Advanced_Motor	3	Steel_Plate	12	Large_Tracks	.
+21	Legs small	7	Basic_Piston	2	Iron_Plate	4	Small_Leg	.
+22	Legs large	9	Advanced_Piston	2	Steel_Plate	8	Large_Leg	.
+23	Gattling hull small	5	Iron_Plate	3	Small_Iron_Tube	6	Basic_Gattling_Hull	.
+24	Gattling hull large	7	Steel_Plate	5	Small_Steel_Tube	6	Advanced_Gattling_Hull	.
+25	Gattling small	3	Basic_Gattling_Hull	1	Gattling_Ammo	8	Basic_Gattling	.
+26	Gattling large	3	Advanced_Gattling_Hull	1	Gattling_Ammo	8	Advanced_Gattling	.
+27	Rocket launcher hull small	5	Iron_Plate	3	Large_Iron_Tube	6	Basic_Rocket_Launcher_Hull	.
+28	Rocket launcher hull large	7	Steel_Plate	5	Large_Steel_Tube	6	Advanced_Rocket_Launcher_Hull	.
+29	Rocket launcher small	3	Basic_Rocket_Launcher_Hull	1	Rocket_Ammo	1	Basic_Rocket_Launcher	.
+30	Rocket launcher large	3	Advanced_Rocket_Launcher_Hull	1	Rocket_Ammo	6	Advanced_Rocket_Launcher	.
+31	Gattling ammo	4	Iron_Plate	3	Copper_Ingot	2	Gattling_Ammo	.
+32	Rocket ammo	4	Small_Iron_Tube	4	Copper_Ingot	4	Rocket_Ammo	.

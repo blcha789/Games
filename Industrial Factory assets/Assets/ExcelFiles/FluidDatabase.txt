@@ -1,0 +1,11 @@
+Name	Color	n
+Water	50,50,255
+Oil	0,0,0
+Oxygen	122,204,255
+Hydrogen	255,173,173
+Heavy Fuel	230,230,0
+Light Fuel	255,255,26
+Refinery Gas	204,204,204
+Hydrogen Sulfid	255,174,25
+Sulfuric Acid	255,210,127
+Polyethylene	153,153,153

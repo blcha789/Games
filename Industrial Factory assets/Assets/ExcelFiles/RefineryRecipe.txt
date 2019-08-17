@@ -1,0 +1,6 @@
+ID	Name	Crafting Time	Output/Input Image	Input 1 name	Input 1 Color	Input 1 Amount	Input 2 name	Input 2 color	Input 2 amount	Input 3 name	Input 3 color	Input 3 amount	Output 1 name	Output 1 color	Output 1 amount	Output 2 name	Output  2 color	Output 2 amount	Output 3 name	Output 3 color	Output 3 amount
+1	Oil Processing	3	Fluid	Oil	0,0,0	3	None	None	None	None	None	None	Heavy Fuel	230,230,0	1	Light Fuel	255,255,26	1	Refinery Gas	204,204,204	2	.
+2	Water Processing	2	Fluid	Water	50,50,255	6	None	None	None	None	None	None	Oxygen	122,204,255	2	Hydrogen	255,173,173	4	None	None	None	.
+3	Polyethylene	5	Fluid	Refinery Gas	204,204,204	2	Oxygen	122,204,255	3	None	None	None	Polyethylene	153,153,153	1	None	None	None	None	None	None	.
+4	Sulfuric acid	6	Fluid	Hydrogen Sulfid	255,174,25	5	Oxygen	122,204,255	3	None	None	None	Sulfuric Acid	255,210,127	2	None	None	None	None	None	None	.
+5	Hydrogen sulfid	5	Fluid	Heavy Fuel	230,230,0	3	Hydrogen	255,173,173	5	None	None	None	Hydrogen Sulfid	255,174,25	1	None	None	None	None	None	None	.
