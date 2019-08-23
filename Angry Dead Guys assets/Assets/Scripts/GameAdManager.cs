@@ -9,13 +9,10 @@ public class GameAdManager : MonoBehaviour
     private BannerView bannerView;
     private RewardBasedVideoAd rewardMoneyVideoAd;
 
-    private string testAppId = "ca-app-pub-3940256099942544~3347511713";
-    private string myAppId = "ca-app-pub-8372432902600459~7932228748";
+    private string myAppId = "xxx";
 
-    private string testRewardVideoId = "ca-app-pub-3940256099942544/5224354917";
-
-    private string bannerId = "ca-app-pub-8372432902600459/7200143108";
-    private string rewardMoneyId = "ca-app-pub-8372432902600459/2330959803";
+    private string bannerId = "xxx";
+    private string rewardMoneyId = "xxx";
 
     private bool isRewarded = false;
 
