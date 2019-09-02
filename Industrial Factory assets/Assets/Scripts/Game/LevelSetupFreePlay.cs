@@ -33,10 +33,13 @@ public class LevelSetupFreePlay : MonoBehaviour
     private List<Vector3> downPosition = new List<Vector3>();
     private List<Vector3> rightPosition = new List<Vector3>();
 
+    private TouchCamera touchCamera;
+
     public void Start()
     {
         levelSetup = GetComponent<LevelSetup>();
         buildingList = GetComponent<BuildingList>();
+        touchCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<TouchCamera>();
     }
 
     public void Setup()
@@ -54,6 +57,7 @@ public class LevelSetupFreePlay : MonoBehaviour
         FluidDeposits();
         Buildings();
 
+        touchCamera.SetCameraDefault();
         levelSetup.GameSetup();
         buildingList.GameSetup();
     }

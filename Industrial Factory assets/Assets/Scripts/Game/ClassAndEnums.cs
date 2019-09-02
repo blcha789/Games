@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum BuildingStatus { ok, colliding }
-public enum TypeOfBuilding { solidifier, assembler, refinery, furnace, splitter, conveyor, pipe, pipeOut, pipeBridge, startBuilding, recycler, oreCrusher, bridge, miningDrill, fluidRig, extruder, buyer}
+public enum TypeOfBuilding { solidifier, assembler, refinery, furnace, splitter, conveyor, pipe, pipeOut, pipeBridge, startBuilding, recycler, oreCrusher, bridge, miningDrill, fluidRig, extruder, buyer, electricPole, powerPlant}
 public enum TypeOfSize { uneven, paired, various } // neparny, parny, rozny
 public enum Rotation { Up = 0, Down = 180, Left = 270, Right = 90 }
 
@@ -92,6 +92,13 @@ public class BuyerSetup
 
     public int itemAmount;
     public int fluidAmount;
+}
+
+[System.Serializable]
+public class PowerPlantSetup
+{
+    public Vector3 position = new Vector3(0, 1, 0);
+    public Rotation rotation;
 }
 
 //recipe classes
@@ -200,4 +207,14 @@ public class BuildList
 public class DemolishList
 {
     public List<GameObject> buildings = new List<GameObject>();
+}
+
+[System.Serializable]
+public class StorageList
+{
+    public string name;
+    public Sprite image;
+    public float amount;
+    public float amountNeed;
+    public Color fluidColor;
 }

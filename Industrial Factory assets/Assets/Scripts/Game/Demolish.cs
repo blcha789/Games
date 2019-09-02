@@ -59,7 +59,7 @@ public class Demolish : MonoBehaviour
             bool open = false;
             foreach (Transform item in buildingsParent)
             {
-                if (item.GetComponent<BuildingInfo>().isSelected && item.GetComponent<BuildingInfo>().typeOfBuilding != TypeOfBuilding.startBuilding)
+                if (item.GetComponent<BuildingInfo>().isSelected && !item.GetComponent<BuildingInfo>().startBuilding)
                     open = true;
             }
             if (open)
@@ -114,7 +114,7 @@ public class Demolish : MonoBehaviour
         bool open = false;
         foreach (Transform item in buildingsParent)
         {
-            if (item.GetComponent<BuildingInfo>().isSelected && item.GetComponent<BuildingInfo>().typeOfBuilding != TypeOfBuilding.startBuilding)
+            if (item.GetComponent<BuildingInfo>().isSelected && !item.GetComponent<BuildingInfo>().startBuilding)
                 open = true;
         }
         if (open)

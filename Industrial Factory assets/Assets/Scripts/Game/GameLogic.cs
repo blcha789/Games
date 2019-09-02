@@ -8,6 +8,7 @@ public enum ConstructionOperation { None, Build, Demolish }
 
 public class GameLogic : MonoBehaviour
 {
+    public bool isPowerInLevel = false;
     public bool isPlaying = false; //play mode or build mode
     public ConstructionOperation constructionOperation = ConstructionOperation.None; //construction operation(build, demolish, none)
     public bool isThisLastLevel = false; //if this is last level of all levels

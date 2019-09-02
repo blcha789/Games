@@ -40,6 +40,7 @@ public class Solidifier : MonoBehaviour
     private Transform itemParent;
     private BuildingsUI buildingsUI;
     private AudioSource audioSource;
+    private BuildingPower buildingPower;
 
     private void Start()
     {
@@ -47,6 +48,7 @@ public class Solidifier : MonoBehaviour
         itemParent = GameObject.FindGameObjectWithTag("Hierarchy/Items").transform;
         buildingsUI = GetComponent<BuildingsUI>();
         audioSource = GetComponent<AudioSource>();
+        buildingPower = GetComponent<BuildingPower>();
     }
 
     //This function is called when is picked crafting recipe
@@ -125,12 +127,15 @@ public class Solidifier : MonoBehaviour
     {
         fluid1 = 0;
         fluid2 = 0;
+        item1 = 0;
+        item2 = 0;
 
         inputFluid1.fluidAmount = 0;
         inputFluid2.fluidAmount = 0;
 
         craftingTime = setCraftingTime;
         audioSource.Stop();
+        buildingPower.SetDefaults();
     }
 
     private void Update()
@@ -139,32 +144,36 @@ public class Solidifier : MonoBehaviour
         {
             if (gameLogic.isPlaying)//if is in play mode 
             {
-                if (fluid1 >= needFluid1 || !isFluid1) //if is enougth fluid to craft or if we dont need fluid to craft
+                if (!gameLogic.isPowerInLevel || buildingPower.capacity >= 1)
                 {
-                    if (fluid2 >= needFluid2 || !isFluid2)//if is enougth fluid to craft or if we dont need fluid to craft
+                    if (fluid1 >= needFluid1 || !isFluid1) //if is enougth fluid to craft or if we dont need fluid to craft
                     {
-                        if (item1 >= needItem1 || !isItem1)//if is enougth items to craft or if we dont need item to craft
+                        if (fluid2 >= needFluid2 || !isFluid2)//if is enougth fluid to craft or if we dont need fluid to craft
                         {
-                            if (item2 >= needItem2 || !isItem2)//if is enougth items to craft or if we dont need item to craft
+                            if (item1 >= needItem1 || !isItem1)//if is enougth items to craft or if we dont need item to craft
                             {
-                                if (craftingTime > 0)
+                                if (item2 >= needItem2 || !isItem2)//if is enougth items to craft or if we dont need item to craft
                                 {
-                                    if (!audioSource.isPlaying)
-                                        audioSource.Play();
+                                    if (craftingTime > 0)
+                                    {
+                                        if (!audioSource.isPlaying)
+                                            audioSource.Play();
 
-                                    craftingTime -= Time.deltaTime;
-                                }
-                                else
-                                {
-                                    Instantiate(outputItemPrefab, outputSpawnPos.position, outputItemPrefab.transform.rotation, itemParent);
+                                        craftingTime -= Time.deltaTime;
+                                    }
+                                    else
+                                    {
+                                        Instantiate(outputItemPrefab, outputSpawnPos.position, outputItemPrefab.transform.rotation, itemParent);
 
-                                    craftingTime = setCraftingTime;
+                                        craftingTime = setCraftingTime;
 
-                                    fluid1 -= needFluid1;
-                                    fluid2 -= needFluid2;
+                                        fluid1 -= needFluid1;
+                                        fluid2 -= needFluid2;
 
-                                    item1 -= needItem1;
-                                    item2 -= needItem2;
+                                        item1 -= needItem1;
+                                        item2 -= needItem2;
+                                        buildingPower.capacity -= 0.1f;
+                                    }
                                 }
                             }
                         }

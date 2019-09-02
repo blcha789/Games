@@ -38,17 +38,24 @@ public class Refinery : MonoBehaviour
     private bool isFluid2;
     private bool isFluid3;
 
+    private Sprite fluidImage;
+    private Color fluid1Color;
+    private Color fluid2Color;
+    private Color fluid3Color;
+
     private float setCraftingTime;
 
     private GameLogic gameLogic;
     private BuildingsUI buildingsUI;
     private AudioSource audioSource;
+    private BuildingPower buildingPower;
 
     private void Start()
     {
         gameLogic = GameObject.FindGameObjectWithTag("Hierarchy/GameLogic").GetComponent<GameLogic>();
         buildingsUI = GetComponent<BuildingsUI>();
         audioSource = GetComponent<AudioSource>();
+        buildingPower = GetComponent<BuildingPower>();
     }
 
     //This function is called when is picked crafting recipe
@@ -63,6 +70,7 @@ public class Refinery : MonoBehaviour
         inputFluid1.fluidName = refineryRecipe.inputFluids[0].name;
         inputFluid1.fluidMax = refineryRecipe.inputFluids[0].amount;
         needFluid1 = refineryRecipe.inputFluids[0].amount;
+        fluidImage = refineryRecipe.fluidImage;
 
         if (isFluid2)
         {
@@ -102,26 +110,26 @@ public class Refinery : MonoBehaviour
 
         //input1
         buildingsUI.buildingsItems[0].gameObject.SetActive(true);
-        Color c = refineryRecipe.inputFluids[0].color;
-        buildingsUI.buildingsItems[0].GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(c.r, c.g, c.b, 255);
+        fluid1Color = refineryRecipe.inputFluids[0].color;
+        buildingsUI.buildingsItems[0].GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(fluid1Color.r, fluid1Color.g, fluid1Color.b, 255);
         //input2
         if (isFluid2)
         {
             buildingsUI.buildingsItems[1].gameObject.SetActive(true);
-            c =  refineryRecipe.inputFluids[1].color;
-            buildingsUI.buildingsItems[1].GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(c.r, c.g, c.b, 255);
+            fluid2Color =  refineryRecipe.inputFluids[1].color;
+            buildingsUI.buildingsItems[1].GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(fluid2Color.r, fluid2Color.g, fluid2Color.b, 255);
         }
         //input3
         if (isFluid3)
         {
             buildingsUI.buildingsItems[2].gameObject.SetActive(true);
-            c = refineryRecipe.inputFluids[2].color;
-            buildingsUI.buildingsItems[2].GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(c.r, c.g, c.b, 255);
+            fluid3Color = refineryRecipe.inputFluids[2].color;
+            buildingsUI.buildingsItems[2].GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(fluid3Color.r, fluid3Color.g, fluid3Color.b, 255);
         }
 
         //output1
         buildingsUI.buildingsItems[3].gameObject.SetActive(true);
-        c = refineryRecipe.outputFluids[0].color;
+        Color c = refineryRecipe.outputFluids[0].color;
         buildingsUI.buildingsItems[3].GetChild(0).GetChild(0).GetComponent<Image>().color = new Color(c.r, c.g, c.b, 255);
         //output2
         if (refineryRecipe.isFluid2Output)
@@ -156,41 +164,84 @@ public class Refinery : MonoBehaviour
 
         craftingTime = setCraftingTime;
         audioSource.Stop();
+        buildingPower.SetDefaults();
     }
 
     private void Update()
     {
         if (gameLogic.isPlaying) //if is in play mode
         {
-            if (fluid1 >= needFluid1) //if is stored enougth fluid to craft
+            if (!gameLogic.isPowerInLevel || buildingPower.capacity >= 1)
             {
-                if (fluid2 >= needFluid2 || !isFluid2) //if is stored enougth fluid to craft or if we dont need fluid to craft
+                if (fluid1 >= needFluid1) //if is stored enougth fluid to craft
                 {
-                    if (fluid3 >= needFluid3 || !isFluid3)//if is stored enougth fluid to craft or if we dont need fluid to craft
+                    if (fluid2 >= needFluid2 || !isFluid2) //if is stored enougth fluid to craft or if we dont need fluid to craft
                     {
-                        if (craftingTime > 0)//if crafting time is greater than 0, decrease crafting time by time
+                        if (fluid3 >= needFluid3 || !isFluid3)//if is stored enougth fluid to craft or if we dont need fluid to craft
                         {
-                            if (!audioSource.isPlaying)//if sound of building is off then play sound
-                                audioSource.Play();
+                            if (craftingTime > 0)//if crafting time is greater than 0, decrease crafting time by time
+                            {
+                                if (!audioSource.isPlaying)//if sound of building is off then play sound
+                                    audioSource.Play();
 
-                            craftingTime -= Time.deltaTime;
-                        }
-                        else //if is less than 0 spawn crafted fluid, decrease fluid in storage and set crafting time
-                        {
-                            audioSource.Stop();
-                            outputFluid1.fluidAmount += outputFluid1Amount;
-                            outputFluid2.fluidAmount += outputFluid2Amount;
-                            outputFluid3.fluidAmount += outputFluid3Amount;
+                                craftingTime -= Time.deltaTime;
+                            }
+                            else //if is less than 0 spawn crafted fluid, decrease fluid in storage and set crafting time
+                            {
+                                audioSource.Stop();
+                                outputFluid1.fluidAmount += outputFluid1Amount;
+                                outputFluid2.fluidAmount += outputFluid2Amount;
+                                outputFluid3.fluidAmount += outputFluid3Amount;
 
-                            craftingTime = setCraftingTime;
+                                craftingTime = setCraftingTime;
 
-                            fluid1 -= needFluid1;
-                            fluid2 -= needFluid2;
-                            fluid3 -= needFluid3;
+                                fluid1 -= needFluid1;
+                                fluid2 -= needFluid2;
+                                fluid3 -= needFluid3;
+                                buildingPower.capacity -= 0.1f;
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    public StorageList[] CreateRefineryStorageList()
+    {
+        List<StorageList> bigList = new List<StorageList>();
+        StorageList sl = new StorageList();
+
+        sl.name = inputFluid1.name;
+        sl.image = fluidImage;
+        sl.fluidColor = fluid1Color;
+        sl.amount = fluid1;
+        sl.amountNeed = needFluid1;
+
+        bigList.Add(sl);
+
+        if (isFluid2)
+        {
+            sl.name = inputFluid2.name;
+            sl.image = fluidImage;
+            sl.fluidColor = fluid2Color;
+            sl.amount = fluid2;
+            sl.amountNeed = needFluid2;
+
+            bigList.Add(sl);
+        }
+
+        if (isFluid3)
+        {
+            sl.name = inputFluid3.name;
+            sl.image = fluidImage;
+            sl.fluidColor = fluid3Color;
+            sl.amount = fluid3;
+            sl.amountNeed = needFluid3;
+
+            bigList.Add(sl);
+        }
+
+        return bigList.ToArray();
     }
 }

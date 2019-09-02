@@ -54,6 +54,13 @@ public class CheckInputItem : MonoBehaviour
                         GetComponentInParent<Buyer>().itemCount -= 1;
                     }
                 }
+                else if(typeOfBuilding == TypeOfBuilding.powerPlant)
+                {
+                    if (inputNumber == InputItem.Input1)
+                    {
+                        GetComponentInParent<PowerPlant>().itemCount += 1;
+                    }
+                }
                 Destroy(col.gameObject);
             }
             else

@@ -7,11 +7,9 @@ using UnityEngine.SceneManagement;
 public class LevelMenu : MonoBehaviour {
 
     public Text wrenchCounter;
-    public int unlockFreePlayCost = 10;
 
     public GameObject UnlockPanel;
     public GameObject notEnoughtWrenchesPanel;
-    public GameObject freePlayButtonLockImage;
     public GameObject Store;
     public AdsManager adsManager;
 
@@ -20,38 +18,12 @@ public class LevelMenu : MonoBehaviour {
     private void Start()
     {
         fade = GameObject.Find("LevelChanger").GetComponent<Fade>();
-        wrenchCounter.text = PlayerPrefs.GetInt("Wrench").ToString();
-
-        bool allLevelsUnlocked = true;
-        for (int i = 1; i < 21; i++)
-        {
-            if (PlayerPrefs.GetInt("Level" + i) != 1)
-                allLevelsUnlocked = false;
-        }
-
-        if (allLevelsUnlocked || PlayerPrefs.GetInt("FreePlayScene") == 1)
-            freePlayButtonLockImage.SetActive(false);
-        else
-            freePlayButtonLockImage.SetActive(true);
+        wrenchCounter.text = PlayerPrefs.GetInt("Wrench").ToString();       
     }
 
-    public void FreePlay()
+    public void Sandbox()
     {
-        bool allLevelsUnlocked = true;
-        for (int i = 1; i < 21; i++)
-        {
-            if (PlayerPrefs.GetInt("Level" + i) != 1)
-                allLevelsUnlocked = false;
-        }
-
-        if (allLevelsUnlocked || PlayerPrefs.GetInt("FreePlayScene") == 1)
-            fade.FadeToLevel("SandboxScene");
-        else
-        {
-            UnlockPanel.SetActive(true);
-            UnlockPanel.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
-            UnlockPanel.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => Unlock("FreePlayScene"));
-        }
+        fade.FadeToLevel("SandboxMenu");
     }
 
     public void Back()
@@ -72,27 +44,6 @@ public class LevelMenu : MonoBehaviour {
     public void Level21_30()
     {
         fade.FadeToLevel("Level21-30");
-    }
-
-    public void Unlock(string levelName)
-    {
-        if (PlayerPrefs.GetInt("Wrench") >= unlockFreePlayCost)
-        {
-            UnlockPanel.SetActive(false);
-            PlayerPrefs.SetInt(levelName, 1);
-
-            int i = PlayerPrefs.GetInt("Wrench") - unlockFreePlayCost;
-            PlayerPrefs.SetInt("Wrench", i);
-
-            freePlayButtonLockImage.SetActive(false);
-            wrenchCounter.text = PlayerPrefs.GetInt("Wrench").ToString();
-        }
-        else
-        {
-            UnlockPanel.SetActive(false);
-            notEnoughtWrenchesPanel.SetActive(true);
-            notEnoughtWrenchesPanel.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = unlockFreePlayCost.ToString();
-        }
     }
 
     public void Close()

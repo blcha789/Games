@@ -28,6 +28,7 @@ public class Extruder : MonoBehaviour
     private Transform itemParent;
     private BuildingsUI buildingsUI;
     private AudioSource audioSource;
+    private BuildingPower buildingPower;
 
     private bool up = false;
 
@@ -38,6 +39,7 @@ public class Extruder : MonoBehaviour
         itemParent = GameObject.FindGameObjectWithTag("Hierarchy/Items").transform;
         buildingsUI = GetComponent<BuildingsUI>();
         audioSource = GetComponent<AudioSource>();
+        buildingPower = GetComponent<BuildingPower>();
     }
 
     //This function is called when is picked crafting recipe
@@ -76,29 +78,34 @@ public class Extruder : MonoBehaviour
         item1 = 0;
         craftingTime = setCraftingTime;
         audioSource.Stop();
+        buildingPower.SetDefaults();
     }
 
     private void Update()
     {
         if (gameLogic.isPlaying)//if is in play mode 
         {
-            if (item1 >= needItem1) //if is in storage enought items 1 for crafting
+            if (!gameLogic.isPowerInLevel || buildingPower.capacity >= 1)
             {
-                if (!audioSource.isPlaying)//if sound of building is off then play sound
-                    audioSource.Play();
-
-                Move();
-
-                if (craftingTime > 0)//if crafting time is greater than 0, decrease crafting time by time
+                if (item1 >= needItem1) //if is in storage enought items 1 for crafting
                 {
-                    craftingTime -= Time.deltaTime;
-                }
-                else// if is less than 0 spawn crafted item, decrease items in storage and set crafting time
-                {
-                    Instantiate(outputItemPrefab, spawnPos.position, outputItemPrefab.transform.rotation, itemParent);
-                    craftingTime = setCraftingTime;
+                    if (!audioSource.isPlaying)//if sound of building is off then play sound
+                        audioSource.Play();
 
-                    item1 -= needItem1;
+                    Move();
+
+                    if (craftingTime > 0)//if crafting time is greater than 0, decrease crafting time by time
+                    {
+                        craftingTime -= Time.deltaTime;
+                    }
+                    else// if is less than 0 spawn crafted item, decrease items in storage and set crafting time
+                    {
+                        Instantiate(outputItemPrefab, spawnPos.position, outputItemPrefab.transform.rotation, itemParent);
+                        craftingTime = setCraftingTime;
+
+                        item1 -= needItem1;
+                        buildingPower.capacity -= 0.1f;
+                    }
                 }
             }
         }

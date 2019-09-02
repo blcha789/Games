@@ -14,6 +14,7 @@ public class BuildingButtons : MonoBehaviour {
     private Transform buildingsParent;
     private GameObject tileMap;
     private BuildingInfo buildingInfo;
+    private Storage storage;
 
     private bool rotating = false;
 
@@ -26,6 +27,7 @@ public class BuildingButtons : MonoBehaviour {
         assemblyList = GL.GetComponent<AssemblyList>();
         dragAndDrop = GL.GetComponent<DragAndDrop>();
         undoSystem = GL.GetComponent<UndoSystem>();
+        storage = GL.GetComponent<Storage>();
 
         buildingInfo = GetComponent<BuildingInfo>();
 
@@ -75,7 +77,6 @@ public class BuildingButtons : MonoBehaviour {
 
         dragAndDrop.building = null;
 
-
         //set action (demolist ) to undo system and set building that was demolished
         undoSystem.action.Add("Demolish"); 
         DemolishList demolishList = new DemolishList();
@@ -92,6 +93,12 @@ public class BuildingButtons : MonoBehaviour {
 
         tileMap.SetActive(false);//off tile map for placing buildings
 
+        if (buildingInfo.typeOfBuilding == TypeOfBuilding.electricPole)
+        {
+            GetComponent<ElectricPole>().ClearCables();
+            GetComponent<ElectricPole>().ClearPowerPlantCable();
+        }
+
         this.gameObject.SetActive(false);
     }
 
@@ -101,15 +108,44 @@ public class BuildingButtons : MonoBehaviour {
         tileMap.SetActive(false);
         gameLogic.pickedBuilding = this.gameObject;
 
-        if (GetComponent<BuildingInfo>().typeOfBuilding == TypeOfBuilding.assembler)
+        if (buildingInfo.typeOfBuilding == TypeOfBuilding.assembler)
             assemblyList.AssemblerList();
-        else if (GetComponent<BuildingInfo>().typeOfBuilding == TypeOfBuilding.refinery)
+        else if (buildingInfo.typeOfBuilding == TypeOfBuilding.refinery)
             assemblyList.RefineryList();
-        else if (GetComponent<BuildingInfo>().typeOfBuilding == TypeOfBuilding.solidifier)
+        else if (buildingInfo.typeOfBuilding == TypeOfBuilding.solidifier)
             assemblyList.SolidifierList();
-        else if (GetComponent<BuildingInfo>().typeOfBuilding == TypeOfBuilding.extruder)
+        else if (buildingInfo.typeOfBuilding == TypeOfBuilding.extruder)
             assemblyList.ExtruderList();
             
+    }
+
+    public void Storage()
+    {
+        if (buildingInfo.typeOfBuilding == TypeOfBuilding.assembler)
+        {
+            StorageList[] storageListAssembler = GetComponent<Assembler>().CreateAssemblerStorageList();
+            storage.AssemblerStorage(storageListAssembler);
+        }
+        else if (buildingInfo.typeOfBuilding == TypeOfBuilding.refinery)
+        {
+            StorageList[] storageListRefinery = GetComponent<Refinery>().CreateRefineryStorageList();
+            storage.RefineryStorage(storageListRefinery);
+        }
+        else if (buildingInfo.typeOfBuilding == TypeOfBuilding.solidifier)
+        {
+            //StorageList[] storageListSolidifier = GetComponent<Assembler>().CreateAssemblerStorageList();
+           // storage.RefineryStorage(storageListSolidifier);
+        }
+        else if (buildingInfo.typeOfBuilding == TypeOfBuilding.powerPlant)
+        {
+           // StorageList[] storageListPowerPlant = GetComponent<Assembler>().CreateAssemblerStorageList();
+           // storage.PowerPlantStorage(storageListPowerPlant);
+        }
+        else if (buildingInfo.typeOfBuilding == TypeOfBuilding.buyer)
+        {
+          //  StorageList[] storageListBuyer = GetComponent<Assembler>().CreateAssemblerStorageList();
+          //  storage.BuyerStorage(storageListBuyer);
+        }
     }
 
     public void Move() //this function is called when we want to move building

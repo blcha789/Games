@@ -5,11 +5,13 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour {
 
     public bool playTutorialOnStart = false;
+    public bool playTutorialForSteel = false;
     public GameObject tutorialpanel;
     public GameObject previousButton;
     public GameObject nextButton;
     public GameObject endButton;
     public GameObject[] tutorials;
+    public GameObject TutorialForSteel;
     private int currentPage = 0;
 
     private void Start()
@@ -19,6 +21,9 @@ public class Tutorial : MonoBehaviour {
             tutorialpanel.SetActive(true);
             tutorials[currentPage].SetActive(true);
         }
+
+        if (playTutorialForSteel)
+            TutorialForSteel.SetActive(true);
 	}
 
     public void ShowTutorial()
@@ -68,5 +73,10 @@ public class Tutorial : MonoBehaviour {
     {
         tutorials[currentPage].SetActive(false);
         tutorialpanel.SetActive(false);
+    }
+
+    public void CloseTutorialForSteal()
+    {
+        TutorialForSteel.SetActive(false);
     }
 }

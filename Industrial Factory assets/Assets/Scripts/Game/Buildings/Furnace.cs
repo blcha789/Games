@@ -11,6 +11,7 @@ public class Furnace : MonoBehaviour
     public GameObject[] outputItemPrefab;//items that will be crafted
     public Transform spawnPos;//Position where crafted item will spawn
     public CheckInputItem input;//Script checking what item is on input 1
+    public GameObject showObjectsAfterPlay; //smoke
 
     public List<string> items = new List<string>(); //list of items that will be smelt 
 
@@ -19,12 +20,14 @@ public class Furnace : MonoBehaviour
     private GameLogic gameLogic;
     private Transform itemParent;
     private AudioSource audioSource;
+    private BuildingPower buildingPower;
 
     private void Start()
     {
         gameLogic = GameObject.FindGameObjectWithTag("Hierarchy/GameLogic").GetComponent<GameLogic>();
         itemParent = GameObject.FindGameObjectWithTag("Hierarchy/Items").transform;
         audioSource = GetComponent<AudioSource>();
+        buildingPower = GetComponent<BuildingPower>();
 
         setCraftingTime = craftingTime;
         input.itemName = "...";
@@ -35,42 +38,50 @@ public class Furnace : MonoBehaviour
     {
         items.Clear();
         craftingTime = setCraftingTime;
+        showObjectsAfterPlay.SetActive(false);
         audioSource.Stop();
+        buildingPower.SetDefaults();
     }
 
     private void Update()
     {
         if (gameLogic.isPlaying)//if is in play mode 
         {
-            if (!audioSource.isPlaying)//if sound of building is off then play sound
-                audioSource.Play();
-
-            if (items.Count >= 1) //if is in list 1 or more items
+            if (!gameLogic.isPowerInLevel || buildingPower.capacity >= 1)
             {
-                if (craftingTime > 0) //if crafting time is greater than 0, decrease crafting time by time
-                {
-                    craftingTime -= Time.deltaTime;
-                }
-                else// if is less than 0 spawn crafted item
-                {
-                    bool isNotThere = true;
-                    //according to which item is melted, spawn crafted item on output
-                    for (int i = 0; i < inputPrefab.Length; i++)
-                    {
-                        if (inputPrefab[i].name + "(Clone)" == items[0]) 
-                        {
-                            Instantiate(outputItemPrefab[i], spawnPos.position, Quaternion.identity, itemParent);
-                            craftingTime = setCraftingTime;
-                            items.RemoveAt(0);
-                            isNotThere = false;
-                            break;
-                        }
-                    }
+                if (!audioSource.isPlaying)//if sound of building is off then play sound
+                    audioSource.Play();
 
-                    if (isNotThere)//when done melting remove first item in list
+                showObjectsAfterPlay.SetActive(true);
+
+                if (items.Count >= 1) //if is in list 1 or more items
+                {
+                    if (craftingTime > 0) //if crafting time is greater than 0, decrease crafting time by time
                     {
-                        items.RemoveAt(0);
-                        craftingTime = setCraftingTime;
+                        craftingTime -= Time.deltaTime;
+                    }
+                    else// if is less than 0 spawn crafted item
+                    {
+                        bool isNotThere = true;
+                        //according to which item is melted, spawn crafted item on output
+                        for (int i = 0; i < inputPrefab.Length; i++)
+                        {
+                            if (inputPrefab[i].name + "(Clone)" == items[0])
+                            {
+                                Instantiate(outputItemPrefab[i], spawnPos.position, Quaternion.identity, itemParent);
+                                craftingTime = setCraftingTime;
+                                buildingPower.capacity -= 0.1f;
+                                items.RemoveAt(0);
+                                isNotThere = false;
+                                break;
+                            }
+                        }
+
+                        if (isNotThere)//when done melting remove first item in list
+                        {
+                            items.RemoveAt(0);
+                            craftingTime = setCraftingTime;
+                        }
                     }
                 }
             }

@@ -36,14 +36,20 @@ public class LevelSetup : MonoBehaviour
     public GameObject pipeOutputPrefab;
     public PipeOutputSetup[] pipeOutput;
 
-
     [Header("Buyers--------------------")]
     public GameObject buyerPrefab;
     public BuyerSetup[] buyerInput;
 
+    [Header("PowerPlant----------------")]
+    public GameObject powerPlant;
+    public PowerPlantSetup[] powerPlantSetup;
+
+    private GameLogic gameLogic;
 
     private void Start()
     {
+        gameLogic = GetComponent<GameLogic>();
+
         if (!sandbox) //if is not sandbox then setup game
         {
             GameSetup();
@@ -64,6 +70,9 @@ public class LevelSetup : MonoBehaviour
         GroundBlock();
         Decoratives();
         OutputsInputs();
+
+        if (gameLogic.isPowerInLevel)
+            SetupPowerPlant();
 
         GroundBlockSideX1();
         GroundBlockSideX2();
@@ -731,6 +740,34 @@ public class LevelSetup : MonoBehaviour
 
             con.GetComponent<Buyer>().itemCount = buyerInput[i].itemAmount;
             con.GetComponent<Buyer>().fluidCount = buyerInput[i].fluidAmount;
+        }
+    }
+
+    //spawn PowerPlant
+    private void SetupPowerPlant()
+    {
+        if (sandbox)
+        {
+            int rotN = Random.Range(0, 3);
+            Quaternion rot;
+
+            if (rotN == 0)
+                rot = Quaternion.Euler(0, 0, 0);
+            else if (rotN == 1)
+                rot = Quaternion.Euler(0, 90, 0);
+            else if (rotN == 2)
+                rot = Quaternion.Euler(0, 180, 0);
+            else
+                rot = Quaternion.Euler(0, 270, 0);
+
+            Instantiate(powerPlant, new Vector3(Random.Range(4, sizeX - 5), 1f, Random.Range(4, sizeZ - 5)), rot, buildingsParent);
+        }
+        else
+        {
+            for (int i = 0; i < powerPlantSetup.Length; i++)
+            {
+                Instantiate(powerPlant, powerPlantSetup[i].position, Quaternion.Euler(0, (float)powerPlantSetup[i].rotation, 0), buildingsParent);
+            }
         }
     }
 }

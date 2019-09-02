@@ -3,6 +3,7 @@ Iron_Ore	.
 Copper_Ore	.
 Gold_Ore	.
 Stone	.
+Coal	.
 Iron_Ingot	.
 Copper_Ingot	.
 Gold_Ingot	.

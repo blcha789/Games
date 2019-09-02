@@ -38,10 +38,15 @@ public class CheckInputFluid : MonoBehaviour
 
                 fluidAmount -= 1 * Time.deltaTime;
             }
-            else if(typeOfBuilding == TypeOfBuilding.buyer)
+            else if (typeOfBuilding == TypeOfBuilding.buyer)
             {
                 if (inputFluid == InputFluid.Input1)
                     GetComponentInParent<Buyer>().fluidCount -= 1 * Time.deltaTime;
+            }
+            else if (typeOfBuilding == TypeOfBuilding.powerPlant)
+            {
+                if (inputFluid == InputFluid.Input1)
+                    GetComponentInParent<PowerPlant>().fluidCount += 1 * Time.deltaTime;
             }
         }
     }

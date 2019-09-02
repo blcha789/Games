@@ -10,6 +10,7 @@ public class Assembler : MonoBehaviour
     public float craftingTime; //Time to craft item
     public GameObject outputItemPrefab; //Crafted item
     public Transform spawnPos; //Position where crafted item will spawn
+    public GameObject showObjectsAfterPlay; //smoke
 
     [Header("Inputs")]
     public CheckInputItem input1; //Script checking what item is on input 1
@@ -22,6 +23,9 @@ public class Assembler : MonoBehaviour
     private int needItem1 = 1; //How many items is needed to start crafting process
     private int needItem2 = 1;
 
+    private Sprite item1Image;
+    private Sprite item2Image;
+
     private bool isItem2 =  false; //parameter if we need item 2 to craft
 
     private float setCraftingTime; //Stored crafting time
@@ -30,6 +34,7 @@ public class Assembler : MonoBehaviour
     Transform itemParent;
     BuildingsUI buildingsUI;
     AudioSource audioSource;
+    BuildingPower buildingPower;
 
     private void Start()
     {
@@ -38,6 +43,7 @@ public class Assembler : MonoBehaviour
         itemParent = GameObject.FindGameObjectWithTag("Hierarchy/Items").transform;
         buildingsUI = GetComponent<BuildingsUI>();
         audioSource = GetComponent<AudioSource>();
+        buildingPower = GetComponent<BuildingPower>();
     }
 
     //This function is called when is picked crafting recipe
@@ -50,11 +56,13 @@ public class Assembler : MonoBehaviour
 
         input1.itemName = assemblerRecipe.inputItems[0].prefab.name;
         needItem1 = assemblerRecipe.inputItems[0].amount;
+        item1Image = assemblerRecipe.inputItems[0].image;
 
         if (isItem2)
         {
             input2.itemName = assemblerRecipe.inputItems[1].prefab.name;
             needItem2 = assemblerRecipe.inputItems[1].amount;
+            item2Image = assemblerRecipe.inputItems[1].image;
         }
 
         outputItemPrefab = assemblerRecipe.outputItem[0].prefab;
@@ -87,7 +95,9 @@ public class Assembler : MonoBehaviour
         item1 = 0;
         item2 = 0;
         craftingTime = setCraftingTime;
+        showObjectsAfterPlay.SetActive(false);
         audioSource.Stop();
+        buildingPower.SetDefaults();
     }
 
     private void Update()
@@ -96,28 +106,59 @@ public class Assembler : MonoBehaviour
         {
             if (gameLogic.isPlaying) //if is in play mode 
             {
-                if (item1 >= needItem1) //if is in storage enought items 1 for crafting
+                if (!gameLogic.isPowerInLevel || buildingPower.capacity >= 1)
                 {
-                    if (item2 >= needItem2 || !isItem2) //if is in storage enought items 2 or we dont need item 2
+                    if (item1 >= needItem1) //if is in storage enought items 1 for crafting
                     {
-                        if (!audioSource.isPlaying) //if sound of building is off then play sound
-                            audioSource.Play(); 
-
-                        if (craftingTime > 0) //if crafting time is greater than 0, decrease crafting time by time
+                        if (item2 >= needItem2 || !isItem2) //if is in storage enought items 2 or we dont need item 2
                         {
-                            craftingTime -= Time.deltaTime;
-                        }
-                        else // if is less than 0 spawn crafted item, decrease items in storage and set crafting time
-                        {
-                            Instantiate(outputItemPrefab, spawnPos.position, outputItemPrefab.transform.rotation, itemParent);
-                            craftingTime = setCraftingTime; 
+                            if (!audioSource.isPlaying) //if sound of building is off then play sound
+                                audioSource.Play();
+                          
+                            showObjectsAfterPlay.SetActive(true);
 
-                            item1 -= needItem1;
-                            item2 -= needItem2;
+                            if (craftingTime > 0) //if crafting time is greater than 0, decrease crafting time by time
+                            {
+                                craftingTime -= Time.deltaTime;
+                            }
+                            else // if is less than 0 spawn crafted item, decrease items in storage and set crafting time
+                            {
+                                Instantiate(outputItemPrefab, spawnPos.position, outputItemPrefab.transform.rotation, itemParent);
+                                craftingTime = setCraftingTime;
+
+                                item1 -= needItem1;
+                                item2 -= needItem2;
+                                buildingPower.capacity -= 0.1f;
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    public StorageList[] CreateAssemblerStorageList()
+    {
+        List<StorageList> bigList = new List<StorageList>();
+        StorageList sl = new StorageList();
+
+        sl.name = input1.name;
+        sl.image = item1Image;
+        sl.amount = item1;
+        sl.amountNeed = needItem1;
+
+        bigList.Add(sl);
+
+        if(isItem2)
+        {
+            sl.name = input2.name;
+            sl.image = item2Image;
+            sl.amount = item2;
+            sl.amountNeed = needItem2;
+
+            bigList.Add(sl);
+        }
+
+        return bigList.ToArray();
     }
 }

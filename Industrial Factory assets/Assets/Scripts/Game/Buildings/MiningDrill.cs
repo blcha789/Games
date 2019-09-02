@@ -20,6 +20,7 @@ public class MiningDrill : MonoBehaviour
     private Transform itemParent;
     private OreDeposit oreDeposit;
     private AudioSource audioSource;
+    private BuildingPower buildingPower;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class MiningDrill : MonoBehaviour
         gameLogic = GameObject.FindGameObjectWithTag("Hierarchy/GameLogic").GetComponent<GameLogic>();
         itemParent = GameObject.FindGameObjectWithTag("Hierarchy/Items").transform;
         audioSource = GetComponent<AudioSource>();
+        buildingPower = GetComponent<BuildingPower>();
     }
 
     //set mining time
@@ -42,6 +44,7 @@ public class MiningDrill : MonoBehaviour
         itemOutputCanvas.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = null;
         showObjectsAfterPlay.SetActive(false);
         audioSource.Stop();
+        buildingPower.SetDefaults();
     }
 
     //This function is called on play to check if under mining drill is ore deposit and if is set mined item to output
@@ -54,7 +57,6 @@ public class MiningDrill : MonoBehaviour
             oreDeposit = hit.collider.GetComponent<OreDeposit>();
             itemOutputCanvas.SetActive(true);
             itemOutputCanvas.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = hit.collider.GetComponent<OreDeposit>().outputImage;
-            showObjectsAfterPlay.SetActive(true);
         }
     }
 
@@ -64,20 +66,26 @@ public class MiningDrill : MonoBehaviour
         {
             if (gameLogic.isPlaying)//if is in play mode 
             {
-                if (rotatingObject != null) //if is not empty
-                    rotatingObject.Rotate(0, 2, 0);//rotate drill
-
-                if (!audioSource.isPlaying)//if building sound off then play it
-                    audioSource.Play();
-
-                if (timeSpawn <= 0)//if mining time is less than 0 spawn ore
+                if (!gameLogic.isPowerInLevel || buildingPower.capacity >= 1)
                 {
-                    Instantiate(oreDeposit.ore, spawnPos.position, spawnPos.rotation, itemParent);
-                    timeSpawn = setTimeSpawn;
-                    oreDeposit.depositSize--;
+                    if (rotatingObject != null) //if is not empty
+                        rotatingObject.Rotate(0, 2, 0);//rotate drill
+
+                    showObjectsAfterPlay.SetActive(true);
+
+                    if (!audioSource.isPlaying)//if building sound off then play it
+                        audioSource.Play();
+
+                    if (timeSpawn <= 0)//if mining time is less than 0 spawn ore
+                    {
+                        Instantiate(oreDeposit.ore, spawnPos.position, spawnPos.rotation, itemParent);
+                        timeSpawn = setTimeSpawn;
+                        oreDeposit.depositSize--;
+                        buildingPower.capacity -= 0.1f;
+                    }
+                    else//if miniong time is greater than 0, decrease crafting time by time
+                        timeSpawn -= Time.deltaTime;
                 }
-                else//if miniong time is greater than 0, decrease crafting time by time
-                    timeSpawn -= Time.deltaTime;
             }
             else
             {

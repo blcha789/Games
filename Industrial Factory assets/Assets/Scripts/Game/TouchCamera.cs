@@ -24,6 +24,11 @@ public class TouchCamera : MonoBehaviour {
         size = new Vector2(LevelSetup.sizeX, LevelSetup.sizeZ);
     }
 
+    public void SetCameraDefault()
+    {
+        cameraParent.position = new Vector3(0, 0, 0);
+    }
+
     private void Update()
     {
         //check how many touches we have (Zoom , move)

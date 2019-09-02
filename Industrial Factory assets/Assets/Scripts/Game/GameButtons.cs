@@ -22,10 +22,11 @@ public class GameButtons : MonoBehaviour {
     public Transform buildingParent;
     public Transform depositParent;
 
-    [Header("Buttons")]
+    [Header("UI")]
     public GameObject playButton;
     public GameObject stopButton;
     public Button undoButton;
+    public GameObject fastForwardPanel;
 
     [Header("")]
     public Image showInputsOutputsIcon;
@@ -130,13 +131,20 @@ public class GameButtons : MonoBehaviour {
         //add all building that was deleted to demolish list 
         foreach (Transform item in buildingParent)
         {
-            if (item.GetComponent<BuildingInfo>().isSelected && item.GetComponent<BuildingInfo>().typeOfBuilding != TypeOfBuilding.startBuilding)
+            if (item.GetComponent<BuildingInfo>().isSelected && !item.GetComponent<BuildingInfo>().startBuilding)
             {
                 demolishList.buildings.Add(item.gameObject);
                 buildingList.BuildingsCount(int.Parse(item.name), 1);
 
                 item.GetComponent<BuildingInfo>().TriggerExit();
                 item.GetComponent<BuildingInfo>().isSelected = false;
+
+                if (item.GetComponent<BuildingInfo>().typeOfBuilding == TypeOfBuilding.electricPole)
+                {
+                    item.GetComponent<ElectricPole>().ClearCables();
+                    item.GetComponent<ElectricPole>().ClearPowerPlantCable();
+                }
+
                 item.gameObject.SetActive(false);
             }
         }
@@ -239,8 +247,16 @@ public class GameButtons : MonoBehaviour {
                 //change Play UI button to Build UI Button
                 playButton.SetActive(false);
                 stopButton.SetActive(true);
+                fastForwardPanel.SetActive(true);
                 //we cant use undo button in play mode
                 undoButton.interactable = false;
+
+                
+                GameObject[] obj = GameObject.FindGameObjectsWithTag("Building/ElectricPole");
+                for (int i = 0; i < obj.Length; i++)
+                {
+                    obj[i].GetComponent<ElectricPole>().FindMachines();
+                }
             }
             else//if something is wrng it will show panel with warning
             {
@@ -260,6 +276,7 @@ public class GameButtons : MonoBehaviour {
             //change Build UI Button to Build UI Button
             playButton.SetActive(true);
             stopButton.SetActive(false);
+            fastForwardPanel.SetActive(false);
             //we can use undo button
             undoButton.interactable = true;
 
@@ -305,10 +322,16 @@ public class GameButtons : MonoBehaviour {
         }
     } //stop play mode , set build mode
 
+    public void NormalSpeed()
+    {
+        if (gameLogic.isPlaying)
+            Time.timeScale = 1;
+    }
+
     public void FastForward()
     {
         if (gameLogic.isPlaying)
-            Time.timeScale = 2;
+            Time.timeScale = 3;
     }
 
     public void Help()

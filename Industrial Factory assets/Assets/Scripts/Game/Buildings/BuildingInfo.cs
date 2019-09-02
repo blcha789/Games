@@ -18,7 +18,6 @@ public class BuildingInfo : MonoBehaviour
 
     [Header("Building Objects")]
     public GameObject[] showObjects;//UI, Size, ...
-    public GameObject showObjectsAfterPlay; //smoke
     public Renderer[] objectRenderer; //renderer of model of building
 
     private List<Color>colors = new List<Color>();
@@ -49,19 +48,7 @@ public class BuildingInfo : MonoBehaviour
 
     private void Update()
     {
-        if (showObjectsAfterPlay != null)//if building have object that can be showen when in play mode
-        {
-            if (gameLogic.isPlaying && !showObjectsAfterPlay.activeSelf)
-            {
-                showObjectsAfterPlay.SetActive(true);
-            }
-            else if (!gameLogic.isPlaying && showObjectsAfterPlay.activeSelf)
-            {
-                showObjectsAfterPlay.SetActive(false);
-            }
-        }
-
-        if (typeOfBuilding != TypeOfBuilding.startBuilding)
+        if (!startBuilding)
         {
             if (gameLogic.constructionOperation == ConstructionOperation.Demolish)//if is in demolishing
             {
@@ -160,7 +147,7 @@ public class BuildingInfo : MonoBehaviour
             {
                 showObjects[i].SetActive(true);
             }
-            GetComponent<BuildingsUI>().ChangeCanvasItemsRotationToCamera(); // call function to rotate building UI To camera           
+            GetComponent<BuildingsUI>().ChangeCanvasItemsRotationToCamera(); // call function to rotate building UI To camera         
         }
     }
 
@@ -194,6 +181,15 @@ public class BuildingInfo : MonoBehaviour
         {
             GetComponent<Conveyor>().CheckSidesOnMove();
         }
+        else if (typeOfBuilding == TypeOfBuilding.electricPole)
+        {
+            Invoke("FindPoles", 0.25f);
+        }
+    }
+
+    private void FindPoles()
+    {
+        GetComponent<ElectricPole>().FindPoles();
     }
 
     public void WaitToSelect()
@@ -206,6 +202,11 @@ public class BuildingInfo : MonoBehaviour
         if (typeOfBuilding == TypeOfBuilding.conveyor)
         {
             GetComponent<Conveyor>().CheckSidesOnMove();
+        }
+        else if(typeOfBuilding == TypeOfBuilding.electricPole)
+        {
+            GetComponent<ElectricPole>().ClearCables();
+            GetComponent<ElectricPole>().ClearPowerPlantCable();
         }
     }
 }

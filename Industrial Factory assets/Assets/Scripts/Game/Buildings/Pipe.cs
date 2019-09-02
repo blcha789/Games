@@ -68,7 +68,7 @@ public class Pipe : MonoBehaviour
         for (int i = 0; i < pipes.Count; i++)
         {
             //send fluid only if fluid in pipe that will be send to is less than in this pipe and if that pipe is epty or is there same fluid          
-                if (pipes[i].fluidAmount < fluidAmount && (pipes[i].fluidName == null || pipes[i].fluidName == fluidName))
+            if (pipes[i].fluidAmount < fluidAmount && (pipes[i].fluidName == null || pipes[i].fluidName == fluidName))
             { 
                 pipes[i].fluidAmount += 1 * Time.deltaTime;
                 pipes[i].fluidName = fluidName;

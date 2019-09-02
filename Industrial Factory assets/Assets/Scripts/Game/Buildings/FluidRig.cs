@@ -8,6 +8,7 @@ public class FluidRig : MonoBehaviour {
     public LayerMask pipeMask;
     public LayerMask fluidLayerMask;
     public AudioSource audioSource;
+    public BuildingPower buildingPower;
 
     public GameObject fluidOutputCanvas;
 
@@ -25,10 +26,14 @@ public class FluidRig : MonoBehaviour {
         {
             if (gameLogic.isPlaying)
             {
-                if (!audioSource.isPlaying)
-                    audioSource.Play();
+                if (!gameLogic.isPowerInLevel || buildingPower.capacity >= 1)
+                {
+                    if (!audioSource.isPlaying)
+                        audioSource.Play();
 
-                SendFluid();
+                    buildingPower.capacity -= 0.1f * Time.deltaTime;
+                    SendFluid();
+                }
             }
         }
     }
@@ -38,6 +43,7 @@ public class FluidRig : MonoBehaviour {
         fluidOutputCanvas.SetActive(false);
         fluidOutputCanvas.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = Color.clear;
         audioSource.Stop();
+        buildingPower.SetDefaults();
     }
 
     public void FindDeposit()

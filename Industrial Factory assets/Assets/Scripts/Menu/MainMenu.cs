@@ -49,4 +49,9 @@ public class MainMenu : MonoBehaviour {
     {
 
     }
+
+    public void MoreFromUs()
+    {
+        Application.OpenURL("market://details?id=com.ShuterStudio.AngryDeadGuys");
+    }
 }
