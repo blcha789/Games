@@ -19,7 +19,7 @@ public class SpellList : MonoBehaviour
   
   private void LoadSpells()
   {
-  for (int i = 0; i < spellTxt.Length; i++)
+    for (int i = 0; i < spellTxt.Length; i++)
         {
             string[] lines = spellTxt[i].text.Split('\n');
 
@@ -43,7 +43,7 @@ public class SpellList : MonoBehaviour
 [System.Serializable]
 public class SpellListGame
 {
-public List<SpellGame> spells;
+  public List<SpellGame> spells;
 }
 
 [System.Serializable]
