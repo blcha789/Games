@@ -21,11 +21,11 @@ public class CharacterShooting : MonoBehaviour
  public void Shoot(int spellListId, int spellId)
  {
   if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Projectile)  
-   	ShootProjectile(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel) 
+   	ShootProjectile(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel);
   else if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Wave)
-	ShootWave(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel) 
+	ShootWave(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel); 
   else if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Laser)
-	ShootLaser(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel) 
+	ShootLaser(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel); 
  }
 
  private void ShootProjectile(int spellListId, int spellId, int spellLevel)
