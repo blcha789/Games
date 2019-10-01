@@ -16,24 +16,12 @@ public class CharacterStats : MonoBehaviour
     public float healthRegenModifier = 0.2f;
     public float manaRegenModifier = 0.2f; 
 
-    private float currentManaRegen;
+    [Header("Mana")]
+    public Mana[] mana;
+    
     private float currentHealthRegen;
-
     private float currentHealth;
-    private float currentFireMana;
-    private float currentWaterMana;
-    private float currentColdMana;
-    private float currentAirMana;
-    private float currentDarkMana;
-    private float currentEarthMana;
-
     private float maxHealth;
-    private float maxFireMana;
-    private float maxWaterMana;
-    private float maxColdMana;
-    private float maxAirMana;
-    private float maxDarkMana;
-    private float maxEarthMana;  
     
     private bool isDead = false;
 
@@ -46,23 +34,15 @@ public class CharacterStats : MonoBehaviour
     {
         maxHealth = startHealth + PlayerPrefs.GetInt("HealthModifier") * healthModifier;
 	currentHealth = maxHealth;
+	currentHealthRegen = startHealthRegen + PlayerPrefs.GetInt("HealthRegenModifier") * healthRegenModifier;
         
-        currentHealthRegen = startHealthRegen + PlayerPrefs.GetInt("HealthRegenModifier") * healthRegenModifier;
-	currentManaRegen = startManaRegen + PlayerPrefs.GetInt("ManaRegenModifier") * manaRegenModifier;
-     
-        maxFireMana = startMana + (PlayerPrefs.GetInt("FireManaModifier") * manaModifier);
-        maxWaterMana = startMana + (PlayerPrefs.GetInt("WaterManaModifier") * manaModifier);
-        maxColdMana = startMana + (PlayerPrefs.GetInt("ColdManaModifier") * manaModifier);
-        maxAirMana = startMana + (PlayerPrefs.GetInt("AirManaModifier") * manaModifier);
-        maxDarkMana = startMana + (PlayerPrefs.GetInt("DarkManaModifier") * manaModifier);
-        maxEarthMana = startMana + (PlayerPrefs.GetInt("EarthManaModifier") * manaModifier);
+	for(i = 0; i < mana.Length,i++)
+	{
+	mana[i].maxMana = startMana + (PlayerPrefs.GetInt("ManaModifier" + i) * manaModifier);
+	mana[i].currentMana = mana[i].maxMana;
+	mana[i].manaRegen = startManaRegen + (PlayerPrefs.GetInt("ManaRegenModifier" + i) * manaModifier);
+	}	
         
-        currentFireMana = maxFireMana;
-        currentWaterMana = maxWaterMana;
-        currentColdMana = maxColdMana;
-        currentAirMana = maxAirMana;
-        currentDarkMana = maxDarkMana;
-        currentEarthMana = maxEarthMana;
     }
 
     private void Update()
@@ -100,9 +80,24 @@ public class CharacterStats : MonoBehaviour
 	  }
 	}
 
-	public void TakeMana(float mana) 
+	public void TakeMana(TypeOfMana mana, float manaAmount) 
 	{
-	 currentMana -= mana;
-	 //UI
+	 for(i = 0; i < mana.Length,i++)
+	 {
+	  if(mana[i].name == mana)
+	  {
+	   mana[i].current-= manaAmount;
+	   //UI
+	  }
+	 }
 	}
+}
+
+[System.Seriazable]
+public class Mana
+{
+	public TypeOfMana name;
+	public float maxMana;
+	public float currentMana;
+	public float manaRegen;
 }
