@@ -58,10 +58,12 @@ public class CharacterStats : MonoBehaviour
 	   currentHealth += currentHealthRegen * Time.deltaTime;
 	   //UI
 	  }
-
-	  if(currentMana < maxMana)
+	  
+	  for(i = 0; i < mana.Length,i++)
 	  {
-	   currentMana += currentManaRegen * Time.delatTime;
+	   if(mana[i].currentMana < mana[i].maxMana)
+	   {
+	    mana[i].currentMana += mana[i].manaRegen * Time.delatTime;
  	   //UI
 	  }	
 	}
