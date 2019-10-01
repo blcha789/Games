@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum typeOfSpell { projectile, wall, laser}
+public enum typeOfSpell { projectile, wave, laser}
 
 public class CharacterShooting : MonoBehaviour
 {
