@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,40 +7,51 @@ public enum typeOfSpell { projectile, wall, laser}
 public class CharacterShooting : MonoBehaviour
 {
 
-    void Start()
-    {
-        
-    }
+    public float[] projectilePattern; 
 
-    void Update()
-    {
-        
-    }
+ private List<SpellList> spellList =  new List<SpellList>();
+ private CharacterStats characterStats;
+ 
+ private void Start()
+ {
+  spellList = GameObject.FindObjectWithTag("GameManager").getComponent<SpellList>().spellList;
+  characterStats = getComponent<CharacterStats>(); 
+ }
 
+ 
+ public void Shoot(int spellListId, int spellId)
+ {
+  if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Projectile)  
+   	ShootProjectile(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel) 
+  else if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Wave)
+	ShootWave(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel) 
+  else if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Laser)
+	ShootLaser(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel) 
+ }
 
-    public void CastSpell(typeOfSpell typeOfSpell)
-    {
-        if (typeOfSpell == typeOfSpell.projectile)
-            CastProjectile();
-        else if (typeOfSpell == typeOfSpell.wall)
-            CastWall();
-        else if (typeOfSpell == typeOfSpell.laser)
-            CastLaser();
+ private void ShootProjectile(int spellListId, int spellId, int spellLevel)
+ {
+	int projectileAmount = spellLevel * 2 + 1;
+  	for (int i = 0; i < projectileAmount; i++)
+        {
+          GameObject spell = Instantiate(spellList[spellListId].spell[spellId].spellPrefab, shotPos.position, Quaternion.identity);
 
-    }
+          spell.GetComponent<SpellStats>().damage = spellList[spellListId].spell[spellId].damage;
+          spell.GetComponent<Rigidbody>().AddForce((shotPos.transform.forward + shotPos.transform.right * projectilePattern[i]) * spellList[spellListId].spell[spellId].shootForce);
+        }
+	characterStats.TakeMana(spellList[spellListId].spell[spellId].Mana);
+ }
 
-    private void CastProjectile()
-    {
+ private void ShootWave(int spellListId, int spellId, int spellLevel)
+ {
+  
+  
+  characterStats.TakeMana(spellList[spellListId].spell[spellId].Mana);
+ }
 
-    }
-
-    private void CastWall()
-    {
-
-    }
-
-    private void CastLaser()
-    {
-
-    }
+ private void ShootLaser(int spellListId, int spellId, int spellLevel)
+ {
+   
+    //--mana per 1  by holdng button
+ }
 }
