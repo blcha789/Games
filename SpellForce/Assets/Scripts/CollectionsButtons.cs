@@ -49,7 +49,7 @@ public class CollectionsButtons : MonoBehaviour
             for (int j = 1; j < lines.Length; j++)
             {
                 string[] line = lines[j].Split('\t');
-                Spell spell = new Spell();
+                SpellMenu spell = new SpellMenu();
 
                 spell.name = line[1];
                 spell.image = Resources.Load("Images/Spells/" + line[1], typeof(Sprite)) as Sprite;
