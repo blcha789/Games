@@ -28,7 +28,7 @@ public class CollectionsButtons : MonoBehaviour
     public Transform spellDescriptionPanel;
     public GameObject notEnoughtGemsPanel;
 
-    private List<SpellList> spellLists = new List<SpellList>();
+    private List<SpellListMenu> spellLists = new List<SpellListMenu>();
     private DragSystem dragSystem;
 
     [HideInInspector]
@@ -239,13 +239,13 @@ public class CollectionsButtons : MonoBehaviour
 
 
 [System.Serializable]
-public class SpellList
+public class SpellListMenu
 {
-    public List<Spell> spells;
+    public List<SpellMenu> spells;
 }
 
 [System.Serializable]
-public class Spell
+public class SpellMenu
 {
     public string name;
     public Sprite image;
