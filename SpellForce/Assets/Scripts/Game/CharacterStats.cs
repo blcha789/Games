@@ -5,37 +5,37 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
     [Header("Start Stats")]
-	public float starthealth = 100f;
-	public float startMana = 100f;	
-	public float startHealthRegen = 1f;
-	public float startManaRegen = 1f;
+    public float starthealth = 100f;
+    public float startMana = 100f;	
+    public float startHealthRegen = 1f;
+    public float startManaRegen = 1f;
 	
-	[Header("Modifiers")]
-	public float healthModifier = 10;
-	public float manaModifier = 10;
-	public float healthRegenModifier = 0.2f;
-	public float manaRegenModifier = 0.2f; 
+    [Header("Modifiers")]
+    public float healthModifier = 10;
+    public float manaModifier = 10;
+    public float healthRegenModifier = 0.2f;
+    public float manaRegenModifier = 0.2f; 
 
-	private float currentManaRegen;
-	private float currentHealthRegen;
+    private float currentManaRegen;
+    private float currentHealthRegen;
 
-	private float currentHealth;
-	private float currentFireMana;
+    private float currentHealth;
+    private float currentFireMana;
     private float currentWaterMana;
     private float currentColdMana;
     private float currentAirMana;
     private float currentDarkMana;
     private float currentEarthMana;
 
-	private float maxHealth;
-	private float maxFireMana;
+    private float maxHealth;
+    private float maxFireMana;
     private float maxWaterMana;
     private float maxColdMana;
     private float maxAirMana;
     private float maxDarkMana;
-    private float maxEarthMana;                    
-
-	private bool isDead = false;
+    private float maxEarthMana;  
+    
+    private bool isDead = false;
 
     private void Start()
     {
@@ -45,10 +45,10 @@ public class CharacterStats : MonoBehaviour
     private void SetStats()
     {
         maxHealth = startHealth + PlayerPrefs.GetInt("HealthModifier") * healthModifier;
-	    currentHealth = maxHealth;
+	currentHealth = maxHealth;
         
         currentHealthRegen = startHealthRegen + PlayerPrefs.GetInt("HealthRegenModifier") * healthRegenModifier;
-	    currentManaRegen = startManaRegen + PlayerPrefs.GetInt("ManaRegenModifier") * manaRegenModifier;
+	currentManaRegen = startManaRegen + PlayerPrefs.GetInt("ManaRegenModifier") * manaRegenModifier;
      
         maxFireMana = startMana + (PlayerPrefs.GetInt("FireManaModifier") * manaModifier);
         maxWaterMana = startMana + (PlayerPrefs.GetInt("WaterManaModifier") * manaModifier);
