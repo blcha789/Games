@@ -8,9 +8,8 @@ public class CharacterShooting : MonoBehaviour
 {
 
     public float[] projectilePattern; 
-
- private List<SpellList> spellList =  new List<SpellList>();
- private CharacterStats characterStats;
+    private List<SpellList> spellList =  new List<SpellList>();
+    private CharacterStats characterStats;
  
  private void Start()
  {
@@ -39,14 +38,14 @@ public class CharacterShooting : MonoBehaviour
           spell.GetComponent<SpellStats>().damage = spellList[spellListId].spell[spellId].damage;
           spell.GetComponent<Rigidbody>().AddForce((shotPos.transform.forward + shotPos.transform.right * projectilePattern[i]) * spellList[spellListId].spell[spellId].shootForce);
         }
-	characterStats.TakeMana(spellList[spellListId].spell[spellId].Mana);
+	characterStats.TakeMana(spellList[spellListId].spell[spellId].mana, spellList[spellListId].spell[spellId].manaAmount);
  }
 
  private void ShootWave(int spellListId, int spellId, int spellLevel)
  {
   
   
-  characterStats.TakeMana(spellList[spellListId].spell[spellId].Mana);
+  characterStats.TakeMana(spellList[spellListId].spell[spellId].mana, spellList[spellListId].spell[spellId].manaAmount);
  }
 
  private void ShootLaser(int spellListId, int spellId, int spellLevel)
