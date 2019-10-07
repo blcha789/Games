@@ -28,7 +28,7 @@ public class CollectionsButtons : MonoBehaviour
     public Transform spellDescriptionPanel;
     public GameObject notEnoughtGemsPanel;
 
-    private List<SpellList> spellLists = new List<SpellList>();
+    private List<SpellListMenu> spellLists = new List<SpellListMenu>();
     private DragSystem dragSystem;
 
     [HideInInspector]
@@ -49,7 +49,7 @@ public class CollectionsButtons : MonoBehaviour
             for (int j = 1; j < lines.Length; j++)
             {
                 string[] line = lines[j].Split('\t');
-                Spell spell = new Spell();
+                SpellMenu spell = new SpellMenu();
 
                 spell.name = line[1];
                 spell.image = Resources.Load("Images/Spells/" + line[1], typeof(Sprite)) as Sprite;
@@ -239,13 +239,13 @@ public class CollectionsButtons : MonoBehaviour
 
 
 [System.Serializable]
-public class SpellList
+public class SpellListMenu
 {
-    public List<Spell> spells;
+    public List<SpellMenu> spells;
 }
 
 [System.Serializable]
-public class Spell
+public class SpellMenu
 {
     public string name;
     public Sprite image;
