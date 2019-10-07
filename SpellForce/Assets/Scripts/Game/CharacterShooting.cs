@@ -1,7 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< HEAD
+=======
+public enum typeOfSpell { projectile, wave, laser}
+
+>>>>>>> 20e02be97fb7f80c786405da7da5ce7f2122e581
 public class CharacterShooting : MonoBehaviour
 {
     public float[] projectilePattern;
@@ -10,6 +15,7 @@ public class CharacterShooting : MonoBehaviour
     private List<SpellListGame> spellLists = new List<SpellListGame>();
     private CharacterStats characterStats;
 
+<<<<<<< HEAD
     [HideInInspector]
     public PickedSpell pickedSpell;
 
@@ -94,4 +100,52 @@ public class CharacterShooting : MonoBehaviour
 
         //--mana per 1  by holdng button
     }
+=======
+    public float[] projectilePattern; 
+    private List<SpellList> spellList =  new List<SpellList>();
+    private CharacterStats characterStats;
+ 
+ private void Start()
+ {
+  spellList = GameObject.FindObjectWithTag("GameManager").getComponent<SpellList>().spellList;
+  characterStats = getComponent<CharacterStats>(); 
+ }
+
+ 
+ public void Shoot(int spellListId, int spellId)
+ {
+  if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Projectile)  
+   	ShootProjectile(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel);
+  else if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Wave)
+	ShootWave(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel); 
+  else if(spellList[spellListId].spell[spellId].typeOfspell == TypeOfSpell.Laser)
+	ShootLaser(spellListId, spellId, spellList[spellListId].spell[spellId].spellLevel); 
+ }
+
+ private void ShootProjectile(int spellListId, int spellId, int spellLevel)
+ {
+	int projectileAmount = spellLevel * 2 + 1;
+  	for (int i = 0; i < projectileAmount; i++)
+        {
+          GameObject spell = Instantiate(spellList[spellListId].spell[spellId].spellPrefab, shotPos.position, Quaternion.identity);
+
+          spell.GetComponent<SpellStats>().damage = spellList[spellListId].spell[spellId].damage;
+          spell.GetComponent<Rigidbody>().AddForce((shotPos.transform.forward + shotPos.transform.right * projectilePattern[i]) * spellList[spellListId].spell[spellId].shootForce);
+        }
+	characterStats.TakeMana(spellList[spellListId].spell[spellId].mana, spellList[spellListId].spell[spellId].manaAmount);
+ }
+
+ private void ShootWave(int spellListId, int spellId, int spellLevel)
+ {
+  
+  
+  characterStats.TakeMana(spellList[spellListId].spell[spellId].mana, spellList[spellListId].spell[spellId].manaAmount);
+ }
+
+ private void ShootLaser(int spellListId, int spellId, int spellLevel)
+ {
+   
+    //--mana per 1  by holdng button
+ }
+>>>>>>> 20e02be97fb7f80c786405da7da5ce7f2122e581
 }
