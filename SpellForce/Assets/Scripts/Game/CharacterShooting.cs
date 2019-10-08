@@ -78,7 +78,7 @@ public class CharacterShooting : MonoBehaviour
 
     private void Projectile(int spellListId, int spellId, int spellLevel)
     {
-        int projectileAmount = spellLevel * 2 + 1;
+        int projectileAmount = spellLevel * 3.5f + 1;//roundup
         for (int i = 0; i < projectileAmount; i++)
         {
             GameObject spell = Instantiate(spellLists[spellListId].spells[spellId].prefab, shotPosProjectile[i].position, Quaternion.identity);
