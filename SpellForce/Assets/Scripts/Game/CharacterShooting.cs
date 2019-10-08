@@ -97,7 +97,7 @@ public class CharacterShooting : MonoBehaviour
     IEnumerator Laser(int spellListId, int spellId, int spellLevel)
     {
             yield return new WaitForSeconds(1.0f);
-	    //--mana
+	    characterStats.TakeMana(spellList[spellListId].spell[spellId].mana, spellList[spellListId].spell[spellId].manaAmount);
 	    
 	    //find object in collider then damage them
     }
