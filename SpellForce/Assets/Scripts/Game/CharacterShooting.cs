@@ -38,7 +38,7 @@ public class CharacterShooting : MonoBehaviour
                     Destroy(pickedSpell.spell);
 
                     Instantiate(spellLists[pickedSpell.spellListId].spells[pickedSpell.spellId].prefab, hit.point, Quaternion.identity);
-                    //--mana
+                    characterStats.TakeMana(spellList[spellListId].spell[spellId].mana, spellList[spellListId].spell[spellId].manaAmount);
                 }
             }
         }
