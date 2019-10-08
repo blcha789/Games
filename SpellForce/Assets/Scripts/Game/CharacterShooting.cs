@@ -9,6 +9,7 @@ public class CharacterShooting : MonoBehaviour
 
     private List<SpellListGame> spellLists = new List<SpellListGame>();
     private CharacterStats characterStats;
+    private bool isShootingLaser;
 
     [HideInInspector]
     public PickedSpell pickedSpell;
@@ -21,6 +22,8 @@ public class CharacterShooting : MonoBehaviour
 
     private void Update()
     {
+		Laser();
+		
         if (pickedSpell.spell != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //cast ray from mouse position
@@ -53,8 +56,6 @@ public class CharacterShooting : MonoBehaviour
             Projectile(spellListId, spellId, spellLists[spellListId].spells[spellId].level);
         else if (type == "Wave")
             Wave(spellListId, spellId, spellLists[spellListId].spells[spellId].level);
-        else if (type == "Laser")
-            Laser(spellListId, spellId, spellLists[spellListId].spells[spellId].level);
     }
 
     public void MoveShooting(int spellListId, int spellId)
@@ -64,9 +65,16 @@ public class CharacterShooting : MonoBehaviour
         pickedSpell.spellId = spellId;
     }
 
-    public void HoldShooting(int spellListId, int spellId)
+    public void HoldShootingPointerDown(int spellListId, int spellId)
     {
-        Debug.Log("Holdshoot: " + spellListId + ";" + spellId);
+       isShootingLaser = true;
+	   //onParticleSystem
+    }
+    
+    public void HoldShootingPointerUp(int spellListId, int spellId)
+    {
+        isShootingLaser = false;
+		//offParticleSystem
     }
 
 
@@ -91,7 +99,10 @@ public class CharacterShooting : MonoBehaviour
 
     private void Laser(int spellListId, int spellId, int spellLevel)
     {
-
-        //--mana per 1  by holdng button
+		if(isShootingLaser)
+		{
+		    //--mana per 1  by holdng button
+			
+		}
     }
 }
