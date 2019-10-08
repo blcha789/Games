@@ -9,7 +9,6 @@ public class CharacterShooting : MonoBehaviour
 
     private List<SpellListGame> spellLists = new List<SpellListGame>();
     private CharacterStats characterStats;
-    private bool isShootingLaser;
 
     [HideInInspector]
     public PickedSpell pickedSpell;
@@ -21,9 +20,7 @@ public class CharacterShooting : MonoBehaviour
     }
 
     private void Update()
-    {
-		Laser();
-		
+    {		
         if (pickedSpell.spell != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //cast ray from mouse position
@@ -67,13 +64,13 @@ public class CharacterShooting : MonoBehaviour
 
     public void HoldShootingPointerDown(int spellListId, int spellId)
     {
-       isShootingLaser = true;
+       StartCorountine("Laser");
 	   //onParticleSystem
     }
     
     public void HoldShootingPointerUp(int spellListId, int spellId)
     {
-        isShootingLaser = false;
+        StopCorountine("Laser");
 		//offParticleSystem
     }
 
@@ -94,15 +91,14 @@ public class CharacterShooting : MonoBehaviour
 
     private void Wave(int spellListId, int spellId, int spellLevel)
     {
-
+	
     }
 
-    private void Laser(int spellListId, int spellId, int spellLevel)
+    IEnumerator Laser(int spellListId, int spellId, int spellLevel)
     {
-		if(isShootingLaser)
-		{
-		    //--mana per 1  by holdng button
-			
-		}
+            yield return new WaitForSeconds(1.0f);
+	    //--mana
+	    
+	    //find object in collider then damage them
     }
 }
