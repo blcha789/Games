@@ -1,0 +1,26 @@
+Fire:
+      - 0,0 FireProjectile (1 per shot)
+      - 0,1 FireProjectile (5 per shot) 
+      - 0,2 FireProjectile (8 per shot)
+      
+      - 1,0 FireWall (small)
+      - 1,1 FireWall (medium)
+      - 1,2 FireWall (large)
+      
+      - 2,0 FireLaser (small)
+      - 2,1 FireLAser (medium)
+      - 2,1 FireLaser (large)
+      
+Water:
+      - 3,0 WaterProjectile (1 per shot)
+      - 3,1 WaterProjectile (5 per shot) 
+      - 3,2 WaterProjectile (8 per shot)
+      
+      - 4,0 WaterTsunami
+      - 4,1 None
+      - 4,2 None
+      
+Air:
+      - 5,0 
+      
+      
