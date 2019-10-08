@@ -78,8 +78,18 @@ public class SpellSetup : MonoBehaviour
                 }
                 else //hold
                 {
+                    EventTrigger trigger = spellSlots[i].GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry = new EventTrigger.Entry();
+                    
                     //pointerdown
+                    entry.eventID = EventTriggerType.PointerDown;
+                    entry.callback.AddListener((data) => characterShooting.HoldShootingPointerDown(spellListId, spellId));
+                    trigger.triggers.Add(entry);
+                    
                     //pointerup
+                    entry.eventID = EventTriggerType.PointerUp;
+                    entry.callback.AddListener((data) => characterShooting.HoldShootingPointerUp(spellListId, spellId));
+                    trigger.triggers.Add(entry);
                 }
             }
             else
