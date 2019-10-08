@@ -31,8 +31,8 @@ public class CollectionsButtons : MonoBehaviour
     private List<SpellListMenu> spellLists = new List<SpellListMenu>();
     private DragSystem dragSystem;
 
-    [HideInInspector]
-    public SpellList spellList;
+
+    public SpellListMenu spellList;
 
     void Start()
     {
@@ -53,19 +53,24 @@ public class CollectionsButtons : MonoBehaviour
 
                 spell.name = line[1];
                 spell.image = Resources.Load("Images/Spells/" + line[1], typeof(Sprite)) as Sprite;
-                 /*spell.type = line[2];
-                 spell.effect = line[3];
-                 spell.manaType = line[4];
-                 /*  spell.mana = int.Parse(line[5]);
-                   spell.dmg = float.Parse(line[6]);
-                   spell.dps = float.Parse(line[7]);
-                   spell.required = int.Parse(line[8]);
-                   spell.price = int.Parse(line[9]);
-                   spell.description = line[10];*/
+                spell.castType = line[2];
+                spell.type = line[3];
+                /*spell.effect = line[3];
+                spell.manaType = line[4];
+                /*  spell.mana = int.Parse(line[5]);
+                  spell.dmg = float.Parse(line[6]);
+                  spell.dps = float.Parse(line[7]);
+                  spell.required = int.Parse(line[8]);
+                  spell.price = int.Parse(line[9]);
+                  spell.description = line[10];*/
 
                 spellList.spells.Add(spell);
             }
-            spellLists.Add(spellList);
+
+             spellLists.Add(spellList);
+             spellLists[i].name = spellTxt[i].name;
+             spellList.spells.Clear();
+            //Debug.Log(spellLists[0].name + " " + spellTxt[i].name);
         }
     }
 
@@ -229,7 +234,6 @@ public class CollectionsButtons : MonoBehaviour
         dragSystem.pickedSpell.spell = Instantiate(draggableUISpell, pos, Quaternion.identity, canvas);
         dragSystem.pickedSpell.spell.GetComponent<Image>().sprite = spellLists[int.Parse(id[0])].spells[int.Parse(id[1])].image;
 
-        dragSystem.pickedSpell.isPicked = true;
         dragSystem.pickedSpell.image = spellLists[int.Parse(id[0])].spells[int.Parse(id[1])].image;
         dragSystem.pickedSpell.spellListId = int.Parse(id[0]);
         dragSystem.pickedSpell.spellId = int.Parse(id[1]);
@@ -241,6 +245,7 @@ public class CollectionsButtons : MonoBehaviour
 [System.Serializable]
 public class SpellListMenu
 {
+    public string name;
     public List<SpellMenu> spells;
 }
 
@@ -249,6 +254,7 @@ public class SpellMenu
 {
     public string name;
     public Sprite image;
+    public string castType;
     public string type;
     public string effect;
     public string manaType;
@@ -263,7 +269,6 @@ public class SpellMenu
 [System.Serializable]
 public class PickedSpell
 {
-    public bool isPicked;
     public GameObject spell;
     public Sprite image;
     public int spellListId;

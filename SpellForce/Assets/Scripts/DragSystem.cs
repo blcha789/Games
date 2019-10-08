@@ -28,38 +28,36 @@ public class DragSystem : MonoBehaviour
 
     private void MouseClicks()
     {
-        if (Input.GetMouseButton(0))
+        if (pickedSpell.spell != null)
         {
-            if (pickedSpell.spell != null)
-                pickedSpell.spell.transform.position = Input.mousePosition;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Destroy(pickedSpell.spell);
-
-            if (pickedSpell.isPicked)
+            if (Input.GetMouseButton(0))
             {
-                var objectToReplace = GetDraggableTransformUnderMouse();
-
-                if (objectToReplace != null)
-                {
-                    for (int i = 0; i < 9; i++)
-                    {
-                        if(PlayerPrefs.GetString("SpellSlot" + i) == pickedSpell.spellListId + ";" + pickedSpell.spellId)
-                        {
-                            PlayerPrefs.SetString("SpellSlot" + i, -1 + ";" + -1);
-
-                            collectionsButtons.spellSlots[i].GetComponent<Image>().sprite = slotImage;
-                        }
-                    }
-
-                    objectToReplace.GetComponent<Image>().sprite = pickedSpell.image;
-
-                    PlayerPrefs.SetString("SpellSlot" + objectToReplace.name, pickedSpell.spellListId + ";" + pickedSpell.spellId);
-                }
+                pickedSpell.spell.transform.position = Input.mousePosition;
             }
-            pickedSpell.isPicked = false;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Destroy(pickedSpell.spell);
+
+                    var objectToReplace = GetDraggableTransformUnderMouse();
+
+                    if (objectToReplace != null)
+                    {
+                        for (int i = 0; i < 9; i++)
+                        {
+                            if (PlayerPrefs.GetString("SpellSlot" + i) == pickedSpell.spellListId + ";" + pickedSpell.spellId)
+                            {
+                                PlayerPrefs.SetString("SpellSlot" + i, -1 + ";" + -1);
+
+                                collectionsButtons.spellSlots[i].GetComponent<Image>().sprite = slotImage;
+                            }
+                        }
+
+                        objectToReplace.GetComponent<Image>().sprite = pickedSpell.image;
+
+                        PlayerPrefs.SetString("SpellSlot" + objectToReplace.name, pickedSpell.spellListId + ";" + pickedSpell.spellId);
+                    }              
+            }
         }
     }
 

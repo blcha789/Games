@@ -38,7 +38,7 @@ public class CharacterShooting : MonoBehaviour
                     Destroy(pickedSpell.spell);
 
                     Instantiate(spellLists[pickedSpell.spellListId].spells[pickedSpell.spellId].prefab, hit.point, Quaternion.identity);
-                    characterStats.TakeMana(spellList[spellListId].spell[spellId].mana, spellList[spellListId].spell[spellId].manaAmount);
+                    characterStats.TakeMana(spellLists[pickedSpell.spellListId].spells[pickedSpell.spellId].manaType, spellLists[pickedSpell.spellListId].spells[pickedSpell.spellId].manaAmount);
                 }
             }
         }
@@ -64,13 +64,15 @@ public class CharacterShooting : MonoBehaviour
 
     public void HoldShootingPointerDown(int spellListId, int spellId)
     {
-       StartCorountine("Laser");
+        IEnumerator coroutine = Laser(spellListId, spellId, 0);
+        StartCoroutine(coroutine);
 	   //onParticleSystem
     }
     
     public void HoldShootingPointerUp(int spellListId, int spellId)
     {
-        StopCorountine("Laser");
+        IEnumerator coroutine = Laser(spellListId, spellId, 0);
+        StopCoroutine(coroutine);
 		//offParticleSystem
     }
 
@@ -78,7 +80,7 @@ public class CharacterShooting : MonoBehaviour
 
     private void Projectile(int spellListId, int spellId, int spellLevel)
     {
-        int projectileAmount = spellLevel * 3.5f + 1;//roundup
+        int projectileAmount = (int)Mathf.Ceil(spellLevel * 3.5f + 1);
         for (int i = 0; i < projectileAmount; i++)
         {
             GameObject spell = Instantiate(spellLists[spellListId].spells[spellId].prefab, shotPosProjectile[i].position, Quaternion.identity);
@@ -97,7 +99,7 @@ public class CharacterShooting : MonoBehaviour
     IEnumerator Laser(int spellListId, int spellId, int spellLevel)
     {
             yield return new WaitForSeconds(1.0f);
-	    characterStats.TakeMana(spellList[spellListId].spell[spellId].mana, spellList[spellListId].spell[spellId].manaAmount);
+	        characterStats.TakeMana(spellLists[spellListId].spells[spellId].manaType, spellLists[spellListId].spells[spellId].manaAmount);
 	    
 	    //find object in collider then damage them
     }
