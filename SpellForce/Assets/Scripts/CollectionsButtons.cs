@@ -8,7 +8,7 @@ public enum spellElement{fire, water, cold, air, dark, earth };
 
 public class CollectionsButtons : MonoBehaviour
 {
-    public TextAsset[] spellTxt;
+    public SpellList[] spellLists;
     public Transform[] spellsButtons;
     public Transform[] spellSlots;
 
@@ -28,50 +28,11 @@ public class CollectionsButtons : MonoBehaviour
     public Transform spellDescriptionPanel;
     public GameObject notEnoughtGemsPanel;
 
-    private List<SpellListMenu> spellLists = new List<SpellListMenu>();
     private DragSystem dragSystem;
-
-
-    public SpellListMenu spellList;
 
     void Start()
     {
         dragSystem = GetComponent<DragSystem>();
-        LoadDatabase();
-    }
-
-    private void LoadDatabase()
-    {
-        for (int i = 0; i < spellTxt.Length; i++)
-        {
-            string[] lines = spellTxt[i].text.Split('\n');
-
-            for (int j = 1; j < lines.Length; j++)
-            {
-                string[] line = lines[j].Split('\t');
-                SpellMenu spell = new SpellMenu();
-
-                spell.name = line[1];
-                spell.image = Resources.Load("Images/Spells/" + line[1], typeof(Sprite)) as Sprite;
-                spell.castType = line[2];
-                spell.type = line[3];
-                /*spell.effect = line[3];
-                spell.manaType = line[4];
-                /*  spell.mana = int.Parse(line[5]);
-                  spell.dmg = float.Parse(line[6]);
-                  spell.dps = float.Parse(line[7]);
-                  spell.required = int.Parse(line[8]);
-                  spell.price = int.Parse(line[9]);
-                  spell.description = line[10];*/
-
-                spellList.spells.Add(spell);
-            }
-
-             spellLists.Add(spellList);
-             spellLists[i].name = spellTxt[i].name;
-             spellList.spells.Clear();
-            //Debug.Log(spellLists[0].name + " " + spellTxt[i].name);
-        }
     }
 
     private void LoadUnlockedSpells()
@@ -239,31 +200,6 @@ public class CollectionsButtons : MonoBehaviour
         dragSystem.pickedSpell.spellId = int.Parse(id[1]);
     }
 
-}
-
-
-[System.Serializable]
-public class SpellListMenu
-{
-    public string name;
-    public List<SpellMenu> spells;
-}
-
-[System.Serializable]
-public class SpellMenu
-{
-    public string name;
-    public Sprite image;
-    public string castType;
-    public string type;
-    public string effect;
-    public string manaType;
-    public float mana;
-    public float dmg;
-    public float dps;
-    public int required;
-    public int price;
-    public string description;
 }
 
 [System.Serializable]
