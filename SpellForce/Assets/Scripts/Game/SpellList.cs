@@ -8,14 +8,29 @@ public class SpellList : ScriptableObject
     public Spell[] spell;
 }
 
-//inspector/editor
+//editor
+[CustomEditor (typeof(SpellList))]
+public class SpellListEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        SpellList mp = (SpellList)target;
+        
+        
+    }
+}
+
+enum CastType = {Press, Move, Hold};
+enum Type = {Projectile, Wave, Laser};
+enum ManaType = {Fire, Water, Ice, Air, Earth, Dark}
 
 [System.Serializable]
 public class Spell
 {
     public string name;
-    public string castType;
-    public string type;
+    public CastType castType;
+    public Type type;
+    public ManaType manaType;
     
     public Sprite image;
     public GameObject prefab;
@@ -23,7 +38,6 @@ public class Spell
 
     public int level;
     public string effect;
-    public string manaType;
     public float manaAmount;
     public float dmg;
     public float dps;
