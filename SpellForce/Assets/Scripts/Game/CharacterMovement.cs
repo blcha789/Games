@@ -75,6 +75,5 @@ public class CharacterMovement : MonoBehaviour
                 target = null;
             }
         }
-    }
-    
+    }    
 }
