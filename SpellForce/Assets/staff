@@ -1,14 +1,14 @@
 Fire, Water, Ice, Air, Earth, Dark
 
 
-fire + water = air
+fire + water = air (slow)
 
-water + air  = ice
+water + air  = ice (stun)
 
-earth + dark = fire
+earth + dark = fire (exhaust)
 
-air + earth  = dark
+air + earth  = dark (fear)
 
-dark +  ice  = earth
+dark +  ice  = earth (root)
 
-ice +  fire = water
+ice +  fire = water (silence)
