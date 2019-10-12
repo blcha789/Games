@@ -1,17 +1,18 @@
 Fire, Water, Ice, Air, Earth, Dark
 
 
-fire + water = air (slow)
+fire + water = air (lightning storm)
 
-water + air  = ice (stun)
+water + air  = ice (explosion stun)
 
-earth + dark = fire (exhaust)
+earth + dark = fire (explosion damage)
 
-air + earth  = dark (fear)
 
-dark +  ice  = earth (root)
+air + earth  = dark ()
 
-ice +  fire = water (silence)
+dark +  ice  = earth ()
+
+ice +  fire = water ()
 
 
 fire (fire)
