@@ -15,14 +15,14 @@ dark +  ice  = earth ()
 ice +  fire = water ()
 
 
-fire (fire)
+fire (burning) 
 
-water (silence)
+water (silence) (no attacks)
 
 air (slow)
 
-earth (root)
+earth (root) (no movement)
 
-dark (fear)
+dark (fear) (run away)
 
-ice (stun)
+ice (stun) (no movement no attacks)
