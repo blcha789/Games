@@ -63,13 +63,15 @@ public class EnemyShooting : MonoBehaviour
 
     private void AttackPlayer()
     {
-        anim.SetTrigger("Attack");
+        anim.SetTrigger("AttackMelee");
         canAttack = false;
         player.GetComponent<CharacterStats>().TakeDamage(damage);
     }
 
     private void ShootSpell()
     {
+        anim.SetTrigger("AttackRange");
+        canAttack = false;
         int spellId = Random.Range(0, spells.lenght);
         Instantiate(spells[spellId], shotPos.position, Quartenion.identity);
     }
