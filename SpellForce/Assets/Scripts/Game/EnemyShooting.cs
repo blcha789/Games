@@ -43,14 +43,13 @@ public class EnemyShooting : MonoBehaviour
         float distance = Vector3.Distance(player.position, transform.position);
 
         if (canAttack && !isSilenced)
-        {
-            RaycastHit hit;
-            
+        {        
             if (distance <= attackDistance)
             {
                 if(isMelee)
                 {
                    ShootSpell(); 
+                   attackSound.Play();
                 }
                 else
                 {
