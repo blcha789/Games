@@ -71,6 +71,6 @@ public class EnemyShooting : MonoBehaviour
     private void ShootSpell()
     {
         int spellId = Random.Range(0, spells.lenght);
-        Instantiate(spell[spellId], shotPos.position, Quartenion.identity);
+        Instantiate(spells[spellId], shotPos.position, Quartenion.identity);
     }
 }
