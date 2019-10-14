@@ -12,11 +12,11 @@ public class EnemyShooting : MonoBehaviour
     public float damage;
     public float attackSpeed;
     public AudioSource attackSound;
-    public bool isSilenced = false;
 
     private Transform player;
 
     private bool canAttack = true;
+    private bool isSilenced = false;
     private float currentAttackSpeed;
     private Animator anim;
 
@@ -58,6 +58,11 @@ public class EnemyShooting : MonoBehaviour
                 }
             }
         }
+    }
+    
+    public void Silence(bool _isSilenced)
+    {
+        isSilenced = _isSilenced;
     }
 
     private void AttackPlayer()
