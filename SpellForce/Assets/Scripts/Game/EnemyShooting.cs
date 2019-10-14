@@ -46,7 +46,7 @@ public class EnemyShooting : MonoBehaviour
         {        
             if (distance <= attackDistance)
             {
-                if(isMelee)
+                if(!isMelee)
                 {
                    ShootSpell(); 
                    attackSound.Play();
