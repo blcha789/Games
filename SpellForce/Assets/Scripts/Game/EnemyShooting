@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EnemyShooting : MonoBehaviour
 {
-    public GameObject Spells[];
+    public GameObject spells[];
+    public bool isMelee;
+    public Transform shotPos;
+    
     public float attackDistance;
     public float damage;
     public float attackSpeed;
@@ -42,11 +45,18 @@ public class EnemyShooting : MonoBehaviour
         if (canAttack && !isSilenced)
         {
             RaycastHit hit;
-
+            
             if (distance <= attackDistance)
             {
-                AttackPlayer();
-                attackSound.Play();
+                if(isMelee)
+                {
+                   ShootSpell(); 
+                }
+                else
+                {
+                    AttackPlayer();
+                    attackSound.Play();
+                }
             }
         }
     }
@@ -58,10 +68,9 @@ public class EnemyShooting : MonoBehaviour
         player.GetComponent<CharacterStats>().TakeDamage(damage);
     }
 
-    private void AttackBuilding(RaycastHit hit)
+    private void ShootSpell()
     {
-        anim.SetTrigger("Attack");
-        canAttack = false;
-        hit.transform.GetComponent<BuildingStats>().TakeDamage(damage);
+        int spellId = Random.Range(0, spells.lenght);
+        Instantiate(spell[spellId], shotPos.position, Quartenion.identity);
     }
 }
