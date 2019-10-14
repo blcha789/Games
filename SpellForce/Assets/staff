@@ -1,5 +1,6 @@
 Fire, Water, Ice, Air, Earth, Dark
 
+//------------------------------------------------------------
 
 fire + water = air (lightning storm)
 
@@ -7,13 +8,13 @@ water + air  = ice (explosion stun)
 
 earth + dark = fire (explosion damage)
 
-
 air + earth  = dark ()
 
 dark +  ice  = earth ()
 
 ice +  fire = water ()
 
+//------------------------------------------------------------
 
 fire (burning) 
 
@@ -26,3 +27,24 @@ earth (root) (no movement)
 dark (fear) (run away)
 
 ice (stun) (no movement no attacks)
+
+//------------------------------------------------------------
+
+boost up spells
+
+  projecitles (explosions)
+
+  wave (waves from other mobs)
+  
+  walls (?)
+  
+  other (?)
+  
+  
+  
+  
+  
+  
+  
+  
+  
