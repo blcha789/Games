@@ -62,7 +62,7 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < countEnemyInWave; i++)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(1f / spawnRate);
+            yield return new WaitForSeconds(1f / spawnerSettings.spawnRate);
         }
 
         waveState = WaveState.Complete;
@@ -71,23 +71,23 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Transform sp = spawnPos[Random.Range(0, spawnPos.Length)];
+        Transform sp = spawnPos[Random.Range(0, spawnerSettings.spawnPos.Length)];
         Vector3 pos = RandomCircle(sp.position);
-        GameObject e = Instantiate(zombies[Random.Range(0,zombies.Length)], pos, sp.rotation);
+        GameObject e = Instantiate(spawnerSettings.enemies[Random.Range(0,spawnerSettings.enemies.Length)], pos, sp.rotation);
 
-        e.GetComponent<EnemyStats>().health = Random.Range(minHealth, maxHealth);
-        e.GetComponent<EnemyAttack>().damage = Random.Range(minDamage, maxDamage);
-        e.GetComponent<EnemyAttack>().attackSpeed = Random.Range(minAttackSpeed, maxAttackSpeed);
-        e.GetComponent<EnemyMovement>().movementSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
+        e.GetComponent<EnemyStats>().health = Random.Range(spawnerSettings.minHealth, spawnerSettings.maxHealth);
+        e.GetComponent<EnemyAttack>().damage = Random.Range(spawnerSettings.minDamage, spawnerSettings.maxDamage);
+        e.GetComponent<EnemyAttack>().attackSpeed = Random.Range(spawnerSettings.minAttackSpeed, spawnerSettings.maxAttackSpeed);
+        e.GetComponent<EnemyMovement>().movementSpeed = Random.Range(spawnerSettings.minMoveSpeed, spawnerSettings.maxMoveSpeed);
     }
 
     Vector3 RandomCircle(Vector3 center)
     {
         float ang = Random.value * 360;
         Vector3 pos;
-        pos.x = center.x + radiusSpawn * Mathf.Sin(ang * Mathf.Deg2Rad);
+        pos.x = center.x + spawnerSettings.radiusSpawn * Mathf.Sin(ang * Mathf.Deg2Rad);
         pos.y = center.y;
-        pos.z = center.z + radiusSpawn * Mathf.Cos(ang * Mathf.Deg2Rad);
+        pos.z = center.z + spawnerSettings.radiusSpawn * Mathf.Cos(ang * Mathf.Deg2Rad);
         return pos;
     }
 }
