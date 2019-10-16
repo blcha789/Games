@@ -73,12 +73,7 @@ public class Spawner : MonoBehaviour
     {
         Transform sp = spawnPos[Random.Range(0, spawnerSettings.spawnPos.Length)];
         Vector3 pos = RandomCircle(sp.position);
-        GameObject e = Instantiate(spawnerSettings.enemies[Random.Range(0,spawnerSettings.enemies.Length)], pos, sp.rotation);
-
-        e.GetComponent<EnemyStats>().health = Random.Range(spawnerSettings.minHealth, spawnerSettings.maxHealth);
-        e.GetComponent<EnemyAttack>().damage = Random.Range(spawnerSettings.minDamage, spawnerSettings.maxDamage);
-        e.GetComponent<EnemyAttack>().attackSpeed = Random.Range(spawnerSettings.minAttackSpeed, spawnerSettings.maxAttackSpeed);
-        e.GetComponent<EnemyMovement>().movementSpeed = Random.Range(spawnerSettings.minMoveSpeed, spawnerSettings.maxMoveSpeed);
+        Instantiate(spawnerSettings.enemies[Random.Range(0,spawnerSettings.enemies.Length)], pos, sp.rotation);
     }
 
     Vector3 RandomCircle(Vector3 center)
