@@ -17,6 +17,11 @@ public class EnemyMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
     
+    public void MovementSettings(float minMoveSpeed, float maxMoveSpeed)
+    {
+        movementSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
+    }
+    
     public void Stun(bool _isStuned)
     {
       isStuned = _isStuned;
