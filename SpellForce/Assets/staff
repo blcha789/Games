@@ -1,16 +1,55 @@
 Fire, Water, Ice, Air, Earth, Dark
 
+//------------------------------------------------------------
 
-fire + water = air
+fire + water = air (lightning storm)
 
-water + air  = ice
+water + air  = ice (explosion stun)
 
-earth + dark = fire
+earth + dark = fire (explosion damage)
 
+air + earth  = dark ()
 
-air + earth  = dark
+dark +  ice  = earth ()
 
+ice +  fire = water ()
 
-dark +  ice  = earth
+//------------------------------------------------------------
 
-ice +  fire = water
+fire (burning) 
+
+water (silence) (no attacks)
+
+air (slow)
+
+earth (root) (no movement)
+
+dark (fear) (run away)
+
+ice (stun) (no movement no attacks)
+
+//------------------------------------------------------------
+
+boost up spells
+
+  projecitles (explosions)
+
+  wave (waves from other mobs)
+  
+  walls (?)
+  
+  other (?)
+  
+  //------------------------------------------------------------
+  
+  nie kazdy buff/ spell je mozne pouzit na kazdy enemy character
+  
+  urcite spelly na urcite enemy mozu zosilnit enemy 
+  
+  
+  
+  
+  
+  
+  
+  

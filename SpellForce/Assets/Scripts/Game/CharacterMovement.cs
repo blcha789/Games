@@ -54,4 +54,26 @@ public class CharacterMovement : MonoBehaviour
         else
             transform.LookAt(target.position);
     }
+    
+    private void OnTriggerEnter(col Collider)
+    {
+        if (target == null)
+        {
+            if(col.CompareTag("Enemy"))
+            {
+                target = col.transform;
+            }
+        }
+    }
+    
+    private void OnTriggerExit(col Collider)
+    {
+        if (target != null)
+        {
+            if(col.CompareTag("Enemy"))
+            {
+                target = null;
+            }
+        }
+    }    
 }
