@@ -5,29 +5,37 @@ using UnityEngine;
 public class EnemyShooting : MonoBehaviour
 {
     public GameObject spells[];
-    public bool isMelee;
     public Transform shotPos;
     
+    public bool isMelee;
     public float attackDistance;
-    public float damage;
-    public float attackSpeed;
+    
     public AudioSource attackSound;
 
-    private Transform player;
-
+    private float damage;
+    private float attackSpeed;
+    
     private bool canAttack = true;
     private bool isSilenced = false;
     private float currentAttackSpeed;
+    
+    private Transform player;
     private Animator anim;
 
-    void Start()
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Character").transform;
         anim = GetComponentInChildren<Animator>();
         currentAttackSpeed = attackSpeed;
     }
+    
+    public void AttackSettings(float minDamage, float maxDamage, float minAttackSpeed, float maxAttackSpeed)
+    {
+        damage = Random.Range(minDamage, maxDamage);
+        attackSpeed = Random.Range(minAttackSpeed, maxAttackSpeed);
+    }
 
-    void Update()
+    private void Update()
     {
         if (currentAttackSpeed <= 0)
         {
