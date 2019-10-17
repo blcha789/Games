@@ -27,13 +27,6 @@ public class EnemyStats : MonoBehaviour
         
         SetEnemy();
     }
-    
-    private void SetEnemy()
-    {
-        enemyShooting.AttackSettings(minDamage, maxDamage, minAttackSpeed, maxAttackSpeed);
-        enemyMovement.MovementSettings(minMoveSpeed, maxMoveSpeed);
-        HealthSettings();
-    }
 
     public void TakeDamagePerHit(float damage)
     {
@@ -44,6 +37,14 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamagePerSecond(float damage)
     {
         TakeDamage(damage);
+    }
+    
+        
+    private void SetEnemy()
+    {
+        enemyShooting.AttackSettings(minDamage, maxDamage, minAttackSpeed, maxAttackSpeed);
+        enemyMovement.MovementSettings(minMoveSpeed, maxMoveSpeed);
+        HealthSettings();
     }
     
     private void HealthSettings()
