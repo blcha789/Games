@@ -4,12 +4,34 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    public float health;
-    BuffSystem buffSystem;
+    
+    [Header("Settings")]
+    public float minDamage;
+    public float maxDamage;
+    public float minAttackSpeed;
+    public float maxAttackSpeed;
+    public float minMoveSpeed;
+    public float maxMoveSpeed;
+
+
+    private float health;
+    private BuffSystem buffSystem;
+    private EnemyShooting enemyShooting;
+    private EnemyMovement enemyMovement;
 
     void Start()
     {
         buffSystem = GetComponent<BuffSystem>();
+        enemyShooting = GetComponent<EnemyShooting>();
+        enemyMovement = GetComponent<EnemyMovement>();
+        
+        SetEnemy();
+    }
+    
+    private void SetEnemy()
+    {
+        enemyShooting.AttackSettings(minDamage, maxDamage, minAttackSpeed, maxAttackSpeed);
+        enemyMovement.MovementSettings(minMoveSpeed, maxMoveSpeed);
     }
 
     public void TakeDamagePerHit(float damage)
