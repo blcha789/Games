@@ -1,10 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
-{
-    
+{    
     [Header("Settings")]
     public float minDamage;
     public float maxDamage;
@@ -12,7 +11,8 @@ public class EnemyStats : MonoBehaviour
     public float maxAttackSpeed;
     public float minMoveSpeed;
     public float maxMoveSpeed;
-
+    public float minHealth;
+    public float maxHealth;
 
     private float health;
     private BuffSystem buffSystem;
@@ -32,6 +32,7 @@ public class EnemyStats : MonoBehaviour
     {
         enemyShooting.AttackSettings(minDamage, maxDamage, minAttackSpeed, maxAttackSpeed);
         enemyMovement.MovementSettings(minMoveSpeed, maxMoveSpeed);
+        HealthSettings();
     }
 
     public void TakeDamagePerHit(float damage)
@@ -43,6 +44,11 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamagePerSecond(float damage)
     {
         TakeDamage(damage);
+    }
+    
+    private void HealthSettings()
+    {
+        health = Random.Range(minHealth, maxHealth);
     }
 
     private void TakeDamage(float damage)
