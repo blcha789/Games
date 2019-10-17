@@ -50,7 +50,8 @@ boost up spells
   
   mapy ostrovy vo vzduchu prechadzanie medzi nimi pomocou portalov(viac roznych ciest, hra Tetraphobia on kickstarter),
   zaciatok na zemi odial portovanie na ine miesta, odomikanie portalov, realtime change upgrade spells, stats, ? procedural generated islands ?, 
-  nicenie objektov, 
+  nicenie objektov, teleport z hl ostrova na levely bude nacitanie novych scen a prechadzanie medzi ostrovami cez teleport plynule(prechadzanie particle systemu 
+  z jedneho portalu do druheho)
   
   
   
