@@ -52,6 +52,7 @@ boost up spells
   zaciatok na zemi odial portovanie na ine miesta, odomikanie portalov, realtime change upgrade spells, stats, ? procedural generated islands ?, 
   nicenie objektov, teleport z hl ostrova na levely bude nacitanie novych scen a prechadzanie medzi ostrovami cez teleport plynule(prechadzanie particle systemu 
   z jedneho portalu do druheho)
+  level (napr.  niekolko ostrovov, ktore budu jednotlive stage a posledny kde bude boss, ktory odomkne dalsi level)
   
   https://gist.github.com/ditzel/73f4d1c9028cc3477bb921974f84ed56 (meshDestroyer)
   
