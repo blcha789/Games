@@ -29,8 +29,14 @@ Air:
       - 2,4 None
       - 2,5 None
       
-Ice   - 
+Ice   - 2,0 IceProjectile (1 per shot)
+      - 2,1 IceProjectile (5 per shot) 
+      - 2,2 IceProjectile (8 per shot)
       
-Earth -      
+Earth - 2,0 EarthProjectile (1 per shot)
+      - 2,1 EarthProjectile (5 per shot) 
+      - 2,2 EarthProjectile (8 per shot)     
 
-Dark  - 
+Dark  - 2,0 DarkProjectile (1 per shot)
+      - 2,1 DarkProjectile (5 per shot) 
+      - 2,2 DarkProjectile (8 per shot)
