@@ -39,7 +39,11 @@ Ice   - 3,0 IceProjectile (1 per shot)
       
 Earth - 4,0 EarthProjectile (1 per shot)
       - 4,1 EarthProjectile (5 per shot) 
-      - 4,2 EarthProjectile (8 per shot)     
+      - 4,2 EarthProjectile (8 per shot) 
+      
+      - 4,3 fightingPlant (1)
+      - 4,4 fightingPlant (3)
+      - 4,5 None
 
 Dark  - 5,0 DarkProjectile (1 per shot)
       - 5,1 DarkProjectile (5 per shot) 
