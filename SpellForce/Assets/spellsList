@@ -3,13 +3,9 @@ Fire:
       - 0,1 FireProjectile (5 per shot) 
       - 0,2 FireProjectile (8 per shot)
       
-      - 0,3 FireWall (small)
-      - 0,4 FireWall (medium)
-      - 0,5 FireWall (large)
-      
-      - 0,6 FireLaser (small)
-      - 0,7 FireLAser (medium)
-      - 0,8 FireLaser (large)
+      - 0,3 FireLaser (small)
+      - 0,4 FireLAser (medium)
+      - 0,5 FireLaser (large)
       
 Water:
       - 1,0 WaterProjectile (1 per shot)
