@@ -49,6 +49,16 @@ public class MainMenu : MonoBehaviour {
     {
 
     }
+    
+    public void ReportBug()
+    {
+        
+    }
+    
+    public void ShowUpdateChanges()
+    {
+        
+    }
 
     public void MoreFromUs()
     {
