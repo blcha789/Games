@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour {
         PlayerPrefs.SetInt("Level1", 1);
         builderFactoriesCounter.text = PlayerPrefs.GetInt("BuildedFactories").ToString();
         apkVersion.text = "v" + Application.version;
+        //latestVersion
     }
 
     public void Play()
